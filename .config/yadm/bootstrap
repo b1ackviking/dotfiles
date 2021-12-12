@@ -1,0 +1,30 @@
+!/bin/sh
+
+sudo pacman -S\
+  i3lock\
+  i3status\
+  feh\
+  dunst\
+  network-manager-applet\
+  scrot\
+  brightnessctl\
+  playerctl\
+  alacritty\
+  neovim\
+  python-pip\
+  git\
+  lazygit\
+  cmake\
+  ninja\
+  gcc\
+  gdb\
+  clang\
+  llvm\
+  llvm-libs\
+  lld\
+  lldb
+
+sudo pip install\
+  pre-commit\
+  cmakelang\
+  cmake_language_server
