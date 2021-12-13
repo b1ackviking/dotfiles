@@ -21,7 +21,7 @@ exec --no-startup-id watch -n 3600 feh --randomize --bg-fill ~/Pictures/wp/*
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet
 
-bindsym $mod+l exec --no-startup-id i3lock -i ~/Pictures/wallpapers/lockscreen.png
+bindsym $mod+l exec --no-startup-id i3lock -i ~/Pictures/wp/lockscreen.png
 bindsym $mod+Shift+S exec --no-startup-id scrot -s $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png
 bindsym Print exec --no-startup-id scrot $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png
 bindsym Control+Print exec --no-startup-id scrot -ub $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png
