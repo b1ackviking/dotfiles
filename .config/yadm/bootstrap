@@ -15,6 +15,7 @@ sudo pacman -S\
   git\
   lazygit\
   cmake\
+  ccache\
   ninja\
   gcc\
   gdb\
@@ -26,5 +27,6 @@ sudo pacman -S\
 
 sudo pip install\
   pre-commit\
+  commitizen\
   cmakelang\
   cmake_language_server
