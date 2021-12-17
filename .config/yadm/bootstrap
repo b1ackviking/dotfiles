@@ -1,5 +1,3 @@
-!/bin/sh
-
 sudo pacman -S\
   i3lock\
   i3status\
@@ -23,10 +21,13 @@ sudo pacman -S\
   llvm\
   llvm-libs\
   lld\
-  lldb
+  lldb\
+  doxygen\
+  graphviz
 
 sudo pip install\
   pre-commit\
   commitizen\
+  conan\
   cmakelang\
   cmake_language_server
