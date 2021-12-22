@@ -3,3 +3,5 @@
 	name = Vladimir Chistyakov
 [init]
 	defaultBranch = main
+[pull]
+	rebase = true
