@@ -102,6 +102,7 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR=nvim
 alias vim=nvim
+alias cat=bat
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 unsetopt share_history
