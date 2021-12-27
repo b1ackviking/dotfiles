@@ -9,6 +9,9 @@ alias ls='ls --color=auto'
 alias vim=nvim
 alias cat=bat
 
+export CMAKE_GENERATOR=Ninja
+export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
+
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
 }
