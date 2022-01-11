@@ -7,3 +7,5 @@
 	rebase = true
 [submodule]
 	recurse = true
+[rebase]
+	autoSquash = true
