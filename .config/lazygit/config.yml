@@ -1,0 +1,3 @@
+refresher:
+  refreshInterval: 10 # file/submodule refresh interval in seconds
+  fetchInterval: 300 # re-fetch interval in seconds
