@@ -20,6 +20,7 @@ exec_always "setxkbmap -layout us,ru -option grp:alt_shift_toggle"
 exec_always --no-startup-id watch -n 3600 convert -resize $(xdpyinfo | grep dimensions | cut -d\  -f7 | cut -dx -f1) ~/Pictures/wp/$(ls --hide lockscreen.png ~/Pictures/wp | sort -R | head -n 1) ~/Pictures/wp/lockscreen.png
 exec --no-startup-id watch -n 3600 feh --randomize --bg-fill ~/Pictures/wp/*
 exec --no-startup-id dunst
+exec --no-startup-id picom -b
 exec --no-startup-id nm-applet
 
 bindsym $mod+l exec --no-startup-id i3lock -i ~/Pictures/wp/lockscreen.png
