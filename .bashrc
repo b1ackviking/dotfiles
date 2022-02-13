@@ -12,6 +12,8 @@ alias cat=bat
 export CMAKE_GENERATOR=Ninja
 export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
 
+export CONAN_CMAKE_GENERATOR=Ninja
+
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
 }

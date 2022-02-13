@@ -107,6 +107,8 @@ alias cat=bat
 export CMAKE_GENERATOR=Ninja
 export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
 
+export CONAN_CMAKE_GENERATOR=Ninja
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 unsetopt share_history
