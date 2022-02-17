@@ -11,7 +11,7 @@ vim.o.updatetime = 300
 vim.o.showcmd = true
 vim.o.showmode = true
 vim.o.ruler = true
-vim.o.cursorline = true
+vim.o.cursorline = false
 vim.o.scrolloff = 8
 
 vim.o.autoindent = true
@@ -38,15 +38,20 @@ vim.o.mouse='a'
 vim.cmd([[
 
 set path+=**
-
 colorscheme codedark
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
+highlight EndOfBuffer ctermbg=none
+highlight Normal guibg=none
+highlight NonText guibg=none
+highlight EndOfBuffer guibg=none
 
 autocmd BufWritePre *.c,*.cc,*.cpp,*.h,*.hh,*.hpp lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 " checks if your terminal has 24-bit color support
 if (has("termguicolors"))
     set termguicolors
-    hi LineNr ctermbg=NONE guibg=NONE
+    hi LineNr ctermbg=none guibg=none
 endif
 
 " Ignore compiled files
