@@ -74,9 +74,9 @@ return require('packer').startup(function()
                                                'build'),
         capabilities = capabilities
       }
-      lspconfig.cmake.setup{
-        capabilities = capabilities
-      }
+
+      lspconfig.cmake.setup{}
+
       vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', {noremap = true, silent = true})
       vim.api.nvim_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', {noremap = true, silent = true})
       vim.api.nvim_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', {noremap = true, silent = true})
