@@ -8,6 +8,7 @@
 alias ls='ls --color=auto'
 alias vim=nvim
 alias cat=bat
+alias icat="kitty +kitten icat"
 
 export CMAKE_GENERATOR=Ninja
 export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
