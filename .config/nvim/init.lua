@@ -46,7 +46,7 @@ highlight Normal guibg=none
 highlight NonText guibg=none
 highlight EndOfBuffer guibg=none
 
-autocmd BufWritePre *.c,*.cc,*.cpp,*.h,*.hh,*.hpp,*.cmake,CMakeLists.txt lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.c,*.cc,*.cpp,*.h,*.hh,*.hpp,*.cmake,CMakeLists.txt,*.py lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 " checks if your terminal has 24-bit color support
 if (has("termguicolors"))
