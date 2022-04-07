@@ -9,7 +9,7 @@ sudo pacman -S\
   scrot\
   brightnessctl\
   playerctl\
-  alacritty\
+  kitty\
   neovim\
   python-pip\
   git\
@@ -25,11 +25,12 @@ sudo pacman -S\
   lld\
   lldb\
   doxygen\
-  graphviz
+  graphviz\
+  nodejs
 
 sudo pip install\
   pre-commit\
-  commitizen\
-  conan\
+  pipenv\
   cmakelang\
-  cmake_language_server
+  cmake_language_server\
+  "python-lsp-server[all]"
