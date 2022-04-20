@@ -5,7 +5,16 @@ vim.api.nvim_set_keymap('n', '<leader>h', ':set hlsearch!<CR>', {noremap = true,
 vim.api.nvim_set_keymap('v', '<', '<gv', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('v', '>', '>gv', {noremap = true, silent = true})
 
+vim.o.path = vim.o.path..'**'
 vim.o.wildmenu = true
+-- Ignore compiled files
+vim.o.wildignore = '*.o,*~,*.pyc'
+if vim.api.nvim_call_function('has', {'win16'}) or
+   vim.api.nvim_call_function('has', {'win32'}) then
+  vim.o.wildignore = vim.o.wildignore..',.git\\*,.hg\\*,.svn\\*'
+else
+  vim.o.wildignore = vim.o.wildignore..',*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store'
+end
 
 vim.o.updatetime = 300
 vim.o.showcmd = true
@@ -32,47 +41,44 @@ vim.o.foldenable = false
 vim.o.wrap = true
 vim.o.linebreak = true
 
-vim.o.guifont='JetBrainsMono Nerd Font:h10'
-vim.o.mouse='a'
+vim.o.guifont = 'JetBrainsMono Nerd Font:h10'
+vim.o.mouse = 'a'
+
+vim.api.nvim_create_autocmd({'BufWritePre'}, {
+  pattern = {'*.c', '*.cc', '*.cpp', '*.h', '*.hh', '*.hpp', '*.cmake', 'CMakeLists.txt', '*.py'},
+  callback = function() vim.lsp.buf.formatting_sync(nil, 1000) end
+})
+
+vim.api.nvim_create_autocmd({'InsertEnter'}, {
+  pattern = {'*'},
+  callback = function() vim.api.nvim_set_option_value('rnu', false, {scope = 'local'}) end
+})
+
+vim.api.nvim_create_autocmd({'InsertLeave'}, {
+  pattern = {'*'},
+  callback = function() vim.api.nvim_set_option_value('rnu', true, {scope = 'local'}) end
+})
+
+vim.api.nvim_create_autocmd({'BufLeave'}, {
+  pattern = {'*'},
+  callback = function() vim.api.nvim_set_option_value('rnu', false, {scope = 'local'}) end
+})
+
+vim.api.nvim_create_autocmd({'BufEnter'}, {
+  pattern = {'*'},
+  callback = function()
+    vim.api.nvim_set_option_value('rnu', vim.api.nvim_get_mode()['mode'] ~= 'i', {scope = 'local'})
+  end
+})
 
 vim.cmd([[
-
-set path+=**
 colorscheme codedark
-highlight Normal ctermbg=none
-highlight NonText ctermbg=none
-highlight EndOfBuffer ctermbg=none
-highlight Normal guibg=none
-highlight NonText guibg=none
-highlight EndOfBuffer guibg=none
+highlight Normal ctermbg=none guibg=none
+highlight NonText ctermbg=none guibg=none
+highlight EndOfBuffer ctermbg=none guibg=none
 
-autocmd BufWritePre *.c,*.cc,*.cpp,*.h,*.hh,*.hpp,*.cmake,CMakeLists.txt,*.py lua vim.lsp.buf.formatting_sync(nil, 1000)
-
-" checks if your terminal has 24-bit color support
 if (has("termguicolors"))
-    set termguicolors
-    hi LineNr ctermbg=none guibg=none
+  set termguicolors
+  hi LineNr ctermbg=none guibg=none
 endif
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-  set wildignore+=.git\*,.hg\*,.svn\*
-else
-  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-" Toggle relative numbering, and set to absolute on loss of focus or insert mode
-autocmd InsertEnter * :set nornu
-autocmd InsertLeave * :set rnu
-" we don't want to see relative numbering while debugging
-" debugger uses its own window, so we can disable rnu when source window loses
-" focus
-autocmd BufLeave * :set nornu
-autocmd BufEnter * call SetRNU()
-function! SetRNU()
-  if (mode() != 'i')
-    set rnu 
-  endif
-endfunction
 ]])
