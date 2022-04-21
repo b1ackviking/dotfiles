@@ -11,7 +11,9 @@ sudo pacman -S\
   playerctl\
   kitty\
   neovim\
+  lua-language-server\
   python-pip\
+  python-wheel\
   git\
   lazygit\
   cmake\
