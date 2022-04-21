@@ -26,7 +26,8 @@ sudo pacman -S\
   lldb\
   doxygen\
   graphviz\
-  nodejs
+  nodejs\
+  npm
 
 sudo pip install\
   pre-commit\
@@ -34,3 +35,5 @@ sudo pip install\
   cmakelang\
   cmake_language_server\
   "python-lsp-server[all]"
+
+sudo npm i -g dockerfile-language-server-nodejs
