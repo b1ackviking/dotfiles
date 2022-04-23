@@ -4,6 +4,7 @@ sudo pacman -S\
   feh\
   imagemagick\
   xorg-xdpyinfo\
+  picom\
   dunst\
   network-manager-applet\
   scrot\
