@@ -169,4 +169,5 @@ packer.startup(function()
       vim.g.cmake_ctest_args = '--output-on-failure'
     end
   }
+  packer.use 'alepez/vim-gtest'
 end)
