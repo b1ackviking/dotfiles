@@ -1,21 +1,21 @@
 require('plugins')
 
 vim.g.mapleader = ' '
-vim.api.nvim_set_keymap('n', '<leader>h', ':set hlsearch!<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>h', ':set hlsearch!<CR>', { silent = true })
+vim.keymap.set('v', '<', '<gv', { silent = true })
+vim.keymap.set('v', '>', '>gv', { silent = true })
 
 vim.o.path = vim.o.path .. '**'
 vim.o.wildmenu = true
 -- Ignore compiled files
 vim.o.wildignore = '*.o,*~,*.pyc'
-if vim.api.nvim_call_function('has', { 'win16' }) or
-    vim.api.nvim_call_function('has', { 'win32' }) then
+if vim.fn['has']('win16') or vim.fn['has']('win32') then
   vim.o.wildignore = vim.o.wildignore .. ',.git\\*,.hg\\*,.svn\\*'
 else
   vim.o.wildignore = vim.o.wildignore .. ',*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store'
 end
 
+vim.o.laststatus = 3
 vim.o.updatetime = 300
 vim.o.showcmd = true
 vim.o.showmode = true

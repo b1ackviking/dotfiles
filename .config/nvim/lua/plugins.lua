@@ -101,36 +101,16 @@ packer.startup(function()
         }
       }
 
-      vim.api.nvim_set_keymap(
-        'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', '<C-n>', '<cmd>lua vim.diagnostic.goto_next()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
-        'n', '<C-p>', '<cmd>lua vim.diagnostic.goto_prev()<CR>',
-        { noremap = true, silent = true })
+      vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { silent = true })
+      vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { silent = true })
+      vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { silent = true })
+      vim.keymap.set('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', { silent = true })
+      vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.rename()<CR>', { silent = true })
+      vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>', { silent = true })
+      vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { silent = true })
+      vim.keymap.set('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { silent = true })
+      vim.keymap.set('n', '<C-n>', '<cmd>lua vim.diagnostic.goto_next()<CR>', { silent = true })
+      vim.keymap.set('n', '<C-p>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { silent = true })
     end
   }
   packer.use {
@@ -156,18 +136,18 @@ packer.startup(function()
     'nvim-telescope/telescope.nvim',
     requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' },
     config = function()
-      vim.api.nvim_set_keymap(
+      vim.keymap.set(
         'n', '<leader>ff', '<cmd>lua require(\'telescope.builtin\').find_files()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
+        { silent = true })
+      vim.keymap.set(
         'n', '<leader>fg', '<cmd>lua require(\'telescope.builtin\').live_grep()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
+        { silent = true })
+      vim.keymap.set(
         'n', '<leader>fb', '<cmd>lua require(\'telescope.builtin\').buffers()<CR>',
-        { noremap = true, silent = true })
-      vim.api.nvim_set_keymap(
+        { silent = true })
+      vim.keymap.set(
         'n', '<leader>fh', '<cmd>lua require(\'telescope.builtin\').help_tags()<CR>',
-        { noremap = true, silent = true })
+        { silent = true })
     end
   }
   packer.use {
@@ -182,4 +162,11 @@ packer.startup(function()
   packer.use 'rakr/vim-one'
   packer.use 'tomasiser/vim-code-dark'
   packer.use 'kyazdani42/nvim-web-devicons'
+  packer.use {
+    'ilyachur/cmake4vim',
+    config = function()
+      vim.g.cmake_build_dir = 'build'
+      vim.g.cmake_ctest_args = '--output-on-failure'
+    end
+  }
 end)
