@@ -12,6 +12,7 @@ alias icat="kitty +kitten icat"
 
 export CMAKE_GENERATOR=Ninja
 export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
+export CTEST_OUTPUT_ON_FAILURE=TRUE
 
 export CONAN_CMAKE_GENERATOR=Ninja
 
