@@ -1,6 +1,7 @@
 sudo pacman --needed -S\
   i3lock\
   i3status\
+  gxkb\
   feh\
   xclip\
   imagemagick\
