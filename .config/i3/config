@@ -25,9 +25,9 @@ exec --no-startup-id nm-applet
 exec --no-startup-id gxkb
 
 bindsym $mod+l exec --no-startup-id i3lock -i ~/Pictures/wp/lockscreen.png
-bindsym --release $mod+Shift+S exec --no-startup-id scrot -s $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png
-bindsym Print exec --no-startup-id scrot $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png
-bindsym Control+Print exec --no-startup-id scrot -ub $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png
+bindsym --release $mod+Shift+S exec --no-startup-id scrot -s $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png -e 'xclip -selection clipboard -t image/png -i $f'
+bindsym Print exec --no-startup-id scrot $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png -e 'xclip -selection clipboard -t image/png -i $f'
+bindsym Control+Print exec --no-startup-id scrot -ub $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png -e 'xclip -selection clipboard -t image/png -i $f'
 
 # Screen brightness controls
 bindsym XF86MonBrightnessUp exec --no-startup-id sudo xbacklight -inc 10 && notify-send 'brightness up'
