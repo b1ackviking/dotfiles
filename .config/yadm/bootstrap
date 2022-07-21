@@ -34,11 +34,11 @@ sudo pacman --needed -S\
   nodejs\
   npm
 
-sudo pip install\
+pip install\
   pre-commit\
   pipenv\
   cmakelang\
   cmake_language_server\
   "python-lsp-server[all]"
 
-sudo npm i -g dockerfile-language-server-nodejs
+sudo npm i -g dockerfile-language-server-nodejs yaml-language-server

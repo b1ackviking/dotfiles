@@ -105,6 +105,8 @@ alias vim=nvim
 alias cat=bat
 alias icat="kitty +kitten icat"
 
+export PATH=$HOME/.local/bin:$PATH
+
 export CMAKE_GENERATOR=Ninja
 export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
 export CTEST_OUTPUT_ON_FAILURE=TRUE
