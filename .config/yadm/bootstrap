@@ -1,4 +1,5 @@
 sudo pacman --needed -S\
+  polkit\
   i3lock\
   i3status\
   gxkb\
@@ -25,6 +26,7 @@ sudo pacman --needed -S\
   gcc\
   gdb\
   clang\
+  libc++\
   llvm\
   llvm-libs\
   lld\
