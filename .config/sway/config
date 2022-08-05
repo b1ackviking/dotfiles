@@ -1,0 +1,140 @@
+# Read `man 5 sway` for a complete reference.
+
+font pango:monospace 8
+set $mod Mod4
+
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+input "type:keyboard" {
+    xkb_layout us,ru
+    xkb_options grp:alt_shift_toggle
+}
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec dunst
+
+exec swayidle -w \
+  timeout 300 'swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)' \
+  timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+  before-sleep 'playerctl pause' \
+  before-sleep 'swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)'
+
+bindsym $mod+Shift+q kill
+bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+d exec fuzzel -w 60
+bindsym $mod+l exec swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)
+
+bindsym Print exec grim $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
+# TODO: Ctrl+Print doesn't work
+bindsym Ctrl+Print exec grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')" $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
+bindsym $mod+Shift+S exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
+
+# TODO: use brightnessctl
+bindsym XF86MonBrightnessUp exec --no-startup-id sudo xbacklight -inc 10 && notify-send 'brightness up'
+bindsym XF86MonBrightnessDown exec --no-startup-id sudo xbacklight -dec 10 && notify-send 'brightness down'
+bindsym XF86KbdBrightnessUp exec --no-startup-id brightnessctl --device='*::kbd_backlight' set 1+
+bindsym XF86KbdBrightnessDown exec --no-startup-id brightnessctl --device='*:kbd_backlight' set 1-
+# TODO: bindsym XF86TouchpadToggle
+# TODO: bindsym XF86Calculator
+# TODO: bindsym XF86Search
+
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+x [urgent=latest] focus
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# TODO:
+# bindsym $mod+Ctrl+greater move workspace to output right
+# bindsym $mod+Ctrl+less move workspace to output left
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym $mod+h splith
+bindsym $mod+v splitv
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen
+
+floating_modifier $mod normal
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+# bindsym $mod+a focus parent
+# bindsym $mod+d focus child
+
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus scratchpad show
+
+mode "resize" {
+  bindsym Left resize shrink width 10px
+  bindsym Down resize grow height 10px
+  bindsym Up resize shrink height 10px
+  bindsym Right resize grow width 10px
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position bottom
+    status_command i3status --config ~/.config/i3/i3status.conf
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+# Set inner/outer gaps
+default_border none
+gaps inner 10
+smart_gaps on
+smart_borders on
+
+include /etc/sway/config.d/*

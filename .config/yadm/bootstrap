@@ -34,7 +34,19 @@ sudo pacman --needed -S\
   doxygen\
   graphviz\
   nodejs\
-  npm
+  npm\
+  breeze-gtk\
+  breeze-icons\
+  sway\
+  swaybg\
+  swayidle\
+  swaylock\
+  wl-clipboard\
+  xorg-xwayland\
+  fuzzel\
+  grim\
+  slurp\
+  jq\
 
 pip install\
   pre-commit\
