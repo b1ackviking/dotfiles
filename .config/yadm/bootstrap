@@ -47,11 +47,12 @@ sudo pacman --needed -S\
   grim\
   slurp\
   jq\
+  gnome-keyring\
+  libsecret\
+  seahorse
 
 pip install\
-  pre-commit\
   pipenv\
-  cmakelang\
   cmake_language_server\
   "python-lsp-server[all]"
 
