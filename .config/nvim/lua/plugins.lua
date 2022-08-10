@@ -175,4 +175,5 @@ packer.startup(function()
     end
   }
   packer.use 'alepez/vim-gtest'
+  packer.use 'editorconfig/editorconfig-vim'
 end)
