@@ -72,14 +72,19 @@ packer.startup(function()
       lspconfig.clangd.setup {
         cmd = {
           'clangd',
+          '--enable-config',
           '--background-index',
           '--compile-commands-dir=build',
-          '--clang-tidy', '--cross-file-rename',
+          '--clang-tidy',
           '--header-insertion=iwyu',
-          '--header-insertion-decorators'
+          '--header-insertion-decorators',
+          '--query-driver="/**/*"'
         },
         filetypes = { 'c', 'cc', 'cpp', 'h', 'hpp' },
         root_dir = lspconfig.util.root_pattern(
+          '.clangd',
+          '.clang-format',
+          '.clang-tidy',
           'compile_commands.json',
           'compile_flags.txt',
           '.git',
