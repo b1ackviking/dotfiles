@@ -4,7 +4,7 @@ font pango:monospace 8
 set $mod Mod4
 
 exec_always "setxkbmap -layout us,ru -option grp:alt_shift_toggle"
-exec --no-startup-id watch -n 3600 feh --randomize --bg-fill ~/Pictures/wp/*
+exec --no-startup-id variety --profile $HOME/.config/variety
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
 exec --no-startup-id nm-applet
