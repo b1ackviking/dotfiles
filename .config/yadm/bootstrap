@@ -1,55 +1,29 @@
 sudo pacman --needed -S\
-  polkit\
-  i3lock\
-  i3status\
-  gxkb\
-  feh\
-  xclip\
+  polkit brightnessctl playerctl xdg-user-dirs\
+  pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber\
+  zsh zsh-completions zsh-syntax-highlighting\
+  kitty bat neovim dunst networkmanager network-manager-applet\
+  gnome-keyring libsecret seahorse\
+  breeze-gtk breeze-icons breeze-grub archlinux-wallpaper\
+  nemo vlc eog firefox variety\
+  xorg-server xorg-xinit sddm\
+  i3-gaps i3lock i3status picom\
+  xclip rofi scrot gxkb feh xorg-xdpyinfo\
   imagemagick\
-  xorg-xdpyinfo\
-  picom\
-  dunst\
-  network-manager-applet\
-  scrot\
-  brightnessctl\
-  playerctl\
-  kitty\
-  neovim\
   lua-language-server\
-  python-pip\
-  python-wheel\
-  git\
-  lazygit\
-  cmake\
-  ccache\
-  ninja\
-  gcc\
-  gdb\
-  clang\
-  libc++\
-  llvm\
-  llvm-libs\
-  lld\
-  lldb\
-  doxygen\
-  graphviz\
-  nodejs\
-  npm\
-  breeze-gtk\
-  breeze-icons\
-  sway\
-  swaybg\
-  swayidle\
-  swaylock\
-  wl-clipboard\
-  xorg-xwayland\
-  fuzzel\
-  grim\
-  slurp\
-  jq\
-  gnome-keyring\
-  libsecret\
-  seahorse
+  python python-pip python-wheel python-setuptools\
+  git lazygit binutils make cmake ccache ninja\
+  gcc gdb clang libc++ llvm llvm-libs lld lldb\
+  doxygen graphviz\
+  nodejs npm\
+  sway swaybg swayidle swaylock\
+  wl-clipboard xorg-xwayland fuzzel grim slurp jq\
+  ttf-droid ttf-hack ttf-dejavu ttf-liberation ttf-font-awesome\
+  ttf-jetbrains-mono ttf-ubuntu-font-family gnu-free-fonts noto-fonts
+
+git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -r paru
+
+paru -S onlyoffice-bin skypeforlinux-preview-bin spotify
 
 pip install\
   pipenv\
