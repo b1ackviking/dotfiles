@@ -13,10 +13,15 @@ alias icat="kitty +kitten icat"
 export PATH=$HOME/.local/bin:$PATH
 
 export CMAKE_GENERATOR=Ninja
+export CMAKE_BUILD_TYPE=RelWithDebInfo
+export CMAKE_CONFIGURATION_TYPES="Debug;Release;MinSizeRel;RelWithDebInfo"
 export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
+export CMAKE_COLOR_DIAGNOSTICS=ON
 export CTEST_OUTPUT_ON_FAILURE=TRUE
 
 export CONAN_CMAKE_GENERATOR=Ninja
+export CONAN_SYSREQUIRES_MODE=verify
+export CONAN_SYSREQUIRES_SUDO=True
 
 function parse_git_dirty {
   [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
