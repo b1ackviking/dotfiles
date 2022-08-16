@@ -4,7 +4,7 @@ sudo pacman --needed -S\
   zsh zsh-completions zsh-syntax-highlighting\
   kitty bat neovim dunst networkmanager network-manager-applet\
   gnome-keyring libsecret seahorse\
-  breeze-gtk breeze-icons breeze-grub archlinux-wallpaper\
+  breeze-gtk breeze-icons archlinux-wallpaper\
   nemo vlc eog firefox variety\
   xorg-server xorg-xinit sddm\
   i3-gaps i3lock i3status picom\
@@ -13,7 +13,7 @@ sudo pacman --needed -S\
   lua-language-server\
   python python-pip python-wheel python-setuptools\
   git lazygit binutils make cmake ccache ninja\
-  gcc gdb clang libc++ llvm llvm-libs lld lldb\
+  gcc gdb clang libc++ llvm llvm-libs lld lldb cppcheck\
   doxygen graphviz\
   nodejs npm\
   sway swaybg swayidle swaylock\
