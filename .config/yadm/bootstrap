@@ -1,32 +1,38 @@
 sudo pacman --needed -S\
+  grub efibootmgr os-prober ntfs-3g exfatprogs dosfstools\
   polkit brightnessctl playerctl xdg-user-dirs\
   pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber\
-  zsh zsh-completions zsh-syntax-highlighting\
-  kitty bat neovim dunst networkmanager network-manager-applet\
+  zsh zsh-completions zsh-syntax-highlighting bash-completion\
+  kitty bat tmux nano vim neovim usbutils diffutils findutils dos2unix\
+  networkmanager network-manager-applet wireshark-qt wireguard-tools\
   gnome-keyring libsecret seahorse\
   breeze-gtk breeze-icons archlinux-wallpaper\
-  nemo vlc eog firefox variety\
-  xorg-server xorg-xinit sddm\
+  nemo mc ranger vlc eog gimp imagemagick firefox thunderbird variety audacity\
+  qbittorrent discord telegram-desktop profanity dunst\
+  xorg-server xorg-xinit xorg-xrandr xorg-xdpyinfo\
+  sddm qt5-graphicaleffects qt5-quickcontrols2 qt5-svg\
   i3-gaps i3lock i3status picom\
-  xclip rofi scrot gxkb feh xorg-xdpyinfo\
-  imagemagick\
+  xclip rofi scrot gxkb feh\
   lua-language-server\
-  python python-pip python-wheel python-setuptools\
-  git lazygit binutils make cmake ccache ninja\
+  python python-pip python-wheel python-setuptools python-virtualenv python-pipenv python-poetry\
+  git lazygit binutils make m4 cmake ccache ninja\
   gcc gdb clang libc++ llvm llvm-libs lld lldb cppcheck\
+  arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib arm-none-eabi-gdb\
+  docker man-db minicom openocd\
   doxygen graphviz\
   nodejs npm\
   sway swaybg swayidle swaylock\
   wl-clipboard xorg-xwayland fuzzel grim slurp jq\
   ttf-droid ttf-hack ttf-dejavu ttf-liberation ttf-font-awesome\
-  ttf-jetbrains-mono ttf-ubuntu-font-family gnu-free-fonts noto-fonts
+  ttf-jetbrains-mono ttf-ubuntu-font-family gnu-free-fonts noto-fonts\
+  ttf-fira-code
 
 git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -r paru
 
-paru -S onlyoffice-bin skypeforlinux-preview-bin spotify
+paru --needed -S\
+  onlyoffice-bin skypeforlinux-preview-bin slack-desktop spotify jlink saleae-logic2
 
 pip install\
-  pipenv\
   cmake_language_server\
   "python-lsp-server[all]"
 
