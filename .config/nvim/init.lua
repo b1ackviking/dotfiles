@@ -15,10 +15,12 @@ else
   vim.o.wildignore = vim.o.wildignore .. ',*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store'
 end
 
+vim.o.splitright = false
+vim.o.splitbelow = false
 vim.o.laststatus = 3
 vim.o.updatetime = 300
 vim.o.showcmd = true
-vim.o.showmode = true
+vim.o.showmode = false
 vim.o.ruler = true
 vim.o.cursorline = false
 vim.o.scrolloff = 8
@@ -73,14 +75,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
-vim.cmd([[
-colorscheme codedark
-highlight Normal ctermbg=none guibg=none
-highlight NonText ctermbg=none guibg=none
-highlight EndOfBuffer ctermbg=none guibg=none
-
-if (has("termguicolors"))
-  set termguicolors
-  hi LineNr ctermbg=none guibg=none
-endif
-]])
+vim.o.termguicolors = true
+vim.o.background = 'dark'
+vim.cmd('colorscheme vscode')

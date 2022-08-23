@@ -1,5 +1,4 @@
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-
 if vim.fn.empty(vim.fn.glob(install_path)) then
   vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
   vim.api.nvim_command 'packadd packer.nvim'
@@ -105,7 +104,6 @@ packer.startup(function()
           }
         }
       }
-
       vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { silent = true })
       vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { silent = true })
       vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { silent = true })
@@ -161,17 +159,38 @@ packer.startup(function()
       require 'colorizer'.setup()
     end
   }
-  packer.use 'tpope/vim-fugitive'
   packer.use 'Yggdroot/indentLine'
-  packer.use 'itchyny/lightline.vim'
-  packer.use 'rakr/vim-one'
-  packer.use 'tomasiser/vim-code-dark'
+  packer.use {
+    'Mofiqul/vscode.nvim',
+    config = function()
+      require 'vscode'.setup {
+        transparent = true,
+        disable_nvimtree_bg = true
+      }
+    end
+  }
+  packer.use {
+    'nvim-lualine/lualine.nvim',
+    config = function()
+      require 'lualine'.setup {
+        options = {
+          theme = 'codedark'
+        }
+      }
+    end
+  }
   packer.use 'kyazdani42/nvim-web-devicons'
+  packer.use {
+    'kyazdani42/nvim-tree.lua',
+    config = function()
+      require 'nvim-tree'.setup {}
+    end
+  }
   packer.use {
     'ilyachur/cmake4vim',
     config = function()
       vim.g.cmake_build_dir = 'build'
-      vim.g.cmake_ctest_args = '--output-on-failure'
+      vim.g.cmake_ctest_args = '--progress --output-on-failure'
     end
   }
   packer.use 'alepez/vim-gtest'
