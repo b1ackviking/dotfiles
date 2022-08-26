@@ -30,7 +30,7 @@ sudo pacman --needed -S\
 git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -r paru
 
 paru --needed -S\
-  onlyoffice-bin skypeforlinux-preview-bin slack-desktop spotify jlink saleae-logic2
+  onlyoffice-bin skypeforlinux-preview-bin slack-desktop spotify jlink saleae-logic2 distro-grub-themes-arch
 
 pip install\
   cmake_language_server\
