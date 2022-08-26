@@ -117,22 +117,21 @@ packer.startup(function()
     end
   }
   packer.use {
-    'APZelos/blamer.nvim',
+    'lewis6991/gitsigns.nvim',
     config = function()
-      vim.g.blamer_enabled = true
-      vim.g.blamer_delay = 300
-      vim.g.blamer_date_format = '%d %b %Y %H:%M'
-    end
-  }
-  packer.use {
-    'mhinz/vim-signify',
-    config = function()
-      vim.g.signify_sign_add = '+'
-      vim.g.signify_sign_delete = '_'
-      vim.g.signify_sign_delete_first_line = '-'
-      vim.g.signify_sign_change = '~'
-      vim.g.signify_sign_show_count = 0
-      vim.g.signify_sign_show_text = 1
+      require 'gitsigns'.setup {
+        current_line_blame = true,
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+          delay = 300,
+          ignore_whitespace = false,
+        },
+        current_line_blame_formatter = '<author>, <author_time:%d %b %Y %H:%M> - <summary>',
+        yadm = {
+          enable = true
+        }
+      }
     end
   }
   packer.use {
