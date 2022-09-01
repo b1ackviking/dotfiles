@@ -9,3 +9,5 @@
 	recurse = true
 [rebase]
 	autoSquash = true
+[advice]
+	detachedHead = false
