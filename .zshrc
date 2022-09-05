@@ -102,6 +102,7 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR=nvim
 alias vim=nvim
+alias vi=nvim
 alias cat=bat
 alias icat="kitty +kitten icat"
 
@@ -118,6 +119,10 @@ export CONAN_CMAKE_GENERATOR=Ninja
 export CONAN_SYSREQUIRES_MODE=verify
 export CONAN_SYSREQUIRES_SUDO=True
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [[ `uname` == "Linux" ]]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ `uname` == "Darwin" ]]; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 unsetopt share_history
