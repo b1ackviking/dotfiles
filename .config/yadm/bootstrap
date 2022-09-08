@@ -25,7 +25,7 @@ sudo pacman --needed -S\
   wl-clipboard xorg-xwayland fuzzel grim slurp jq\
   ttf-droid ttf-hack ttf-dejavu ttf-liberation ttf-font-awesome\
   ttf-jetbrains-mono ttf-ubuntu-font-family gnu-free-fonts noto-fonts\
-  ttf-fira-code
+  ttf-fira-code ttf-carlito ttf-opensans
 
 git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -r paru
 
