@@ -1,6 +1,6 @@
 sudo pacman --needed -S\
   grub efibootmgr os-prober ntfs-3g exfatprogs dosfstools\
-  polkit brightnessctl playerctl xdg-user-dirs trash-cli\
+  polkit brightnessctl playerctl xdg-user-dirs trash-cli zip unzip\
   pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber\
   zsh zsh-completions zsh-syntax-highlighting bash-completion\
   kitty bat tmux nano vim neovim usbutils diffutils findutils dos2unix\
