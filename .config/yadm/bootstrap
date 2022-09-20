@@ -32,10 +32,9 @@ git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. 
 paru --needed -S\
   onlyoffice-bin skypeforlinux-preview-bin slack-desktop spotify jlink saleae-logic2 distro-grub-themes-arch
 
-pipx install\
-  pipenv\
-  poetry\
-  cmake_language_server\
-  "python-lsp-server[all]"
+pipx install pipenv
+pipx install poetry
+pipx install cmake_language_server
+pipx install "python-lsp-server[all]"
 
 sudo npm i -g dockerfile-language-server-nodejs yaml-language-server
