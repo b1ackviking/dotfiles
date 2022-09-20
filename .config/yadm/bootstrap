@@ -14,7 +14,7 @@ sudo pacman --needed -S\
   i3-gaps i3lock i3status picom\
   xclip rofi scrot gxkb feh\
   lua-language-server\
-  python python-pip\
+  python python-pip python-pipx\
   git lazygit binutils make m4 cmake ccache ninja\
   gcc gdb clang libc++ llvm llvm-libs lld lldb cppcheck\
   arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib arm-none-eabi-gdb\
@@ -32,7 +32,9 @@ git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. 
 paru --needed -S\
   onlyoffice-bin skypeforlinux-preview-bin slack-desktop spotify jlink saleae-logic2 distro-grub-themes-arch
 
-pip install\
+pipx install\
+  pipenv\
+  poetry\
   cmake_language_server\
   "python-lsp-server[all]"
 
