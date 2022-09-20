@@ -41,11 +41,8 @@ bindcode $mod+$d exec fuzzel -w 60
 bindcode $mod+$l exec swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)
 
 bindsym Print exec grim $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
-# TODO: Ctrl+Print doesn't work
-bindsym Ctrl+Print exec grim -g \
-  "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')" \
-  $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
-bindcode $mod+Shift+$s exec grim -g "$(slurp)" $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
+bindsym Ctrl+Print exec sh ~/.config/sway/window_screenshot.sh
+bindcode $mod+Shift+$s exec grim -g "$(slurp -d)" $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
 
 # TODO: use brightnessctl
 bindsym XF86MonBrightnessUp exec --no-startup-id sudo xbacklight -inc 10 && notify-send 'brightness up'
