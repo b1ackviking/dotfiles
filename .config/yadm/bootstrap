@@ -16,7 +16,7 @@ sudo pacman --needed -S\
   lua-language-server\
   python python-pip python-pipx\
   git lazygit binutils make m4 cmake ccache ninja\
-  gcc gdb clang libc++ llvm llvm-libs lld lldb cppcheck\
+  gcc gdb clang libc++ llvm llvm-libs lld lldb cppcheck debuginfod\
   arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib arm-none-eabi-gdb\
   docker man-db minicom openocd\
   doxygen graphviz\
@@ -30,7 +30,12 @@ sudo pacman --needed -S\
 git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -r paru
 
 paru --needed -S\
-  onlyoffice-bin skypeforlinux-preview-bin slack-desktop spotify jlink saleae-logic2 distro-grub-themes-arch
+  onlyoffice-bin\
+  skypeforlinux-preview-bin slack-desktop\
+  spotify\
+  rr\
+  jlink saleae-logic2\
+  distro-grub-themes-arch
 
 pipx install pipenv
 pipx install poetry
