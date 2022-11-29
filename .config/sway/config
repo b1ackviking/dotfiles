@@ -41,7 +41,7 @@ bindcode $mod+$d exec fuzzel -w 60
 bindcode $mod+$l exec swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)
 
 bindsym Print exec grim $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
-bindsym Ctrl+Print exec sh ~/.config/sway/window_screenshot.sh
+bindsym Ctrl+Print exec sh $HOME/.config/sway/window_screenshot.sh
 bindcode $mod+Shift+$s exec grim -g "$(slurp -d)" $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
 
 # TODO: use brightnessctl
@@ -136,7 +136,7 @@ bindcode $mod+$r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
   position bottom
-  status_command i3status --config ~/.config/i3/i3status.conf
+  status_command i3status --config $HOME/.config/i3/i3status.conf
   colors {
     statusline #ffffff
     background #323232
