@@ -3,6 +3,7 @@
 	name = Vladimir Chistyakov
 [init]
 	defaultBranch = main
+	templateDir = ~/.config/git/template
 [pull]
 	rebase = true
 [submodule]
