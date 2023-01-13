@@ -100,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+unsetopt share_history
+
 export EDITOR=nvim
 alias vim=nvim
 alias vi=nvim
@@ -125,4 +127,6 @@ elif [[ `uname` == "Darwin" ]]; then
   source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-unsetopt share_history
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  source $HOME/.nix-profile/etc/profile.d/nix.sh;
+fi

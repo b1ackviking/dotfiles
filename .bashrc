@@ -31,3 +31,6 @@ function parse_git_branch {
 }
 export PS1='\[\e[\033[01;34m\]\u@\h \[\e[38;5;211m\]\W\[\e[\033[38;5;48m\] $(parse_git_branch)\[\e[\033[00m\]\$ '
 
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  source $HOME/.nix-profile/etc/profile.d/nix.sh;
+fi
