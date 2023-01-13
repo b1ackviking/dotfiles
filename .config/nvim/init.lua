@@ -98,6 +98,25 @@ packer.startup(function()
     end
   }
   packer.use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+    config = function()
+      require 'nvim-treesitter.configs'.setup {
+        ensure_installed = { "c", "cpp", "cmake", "lua" },
+        auto_install = false,
+        highlight = {
+          enable = true
+        },
+        indent = {
+          enable = true
+        }
+      }
+    end
+  }
+  packer.use {
     'lewis6991/gitsigns.nvim',
     config = function()
       require 'gitsigns'.setup {
@@ -282,7 +301,8 @@ vim.o.incsearch = true
 vim.o.smartcase = true
 vim.o.hlsearch = true
 
-vim.o.foldmethod = 'syntax'
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr   = 'nvim_treesitter#foldexpr()'
 vim.o.foldenable = false
 
 vim.o.wrap = true
