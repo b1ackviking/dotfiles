@@ -35,6 +35,7 @@ paru --needed -S\
   spotify\
   rr\
   jlink saleae-logic2\
+  nerd-fonts-jetbrains-mono\
   distro-grub-themes-arch
 
 pipx install pipenv
