@@ -12,3 +12,5 @@
 	autoSquash = true
 [advice]
 	detachedHead = false
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
