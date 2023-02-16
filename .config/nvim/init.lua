@@ -32,7 +32,7 @@ packer.startup(function()
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-b>'] = cmp.mapping.scroll_docs( -4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
@@ -75,12 +75,24 @@ packer.startup(function()
       lspconfig.cmake.setup {}
       lspconfig.pylsp.setup {}
       lspconfig.dockerls.setup {}
-      lspconfig.sumneko_lua.setup {
+      lspconfig.lua_ls.setup {
         settings = {
           Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT',
+            },
             diagnostics = {
               -- Get the language server to recognize the `vim` global
               globals = { 'vim' },
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
             },
           }
         }
@@ -95,25 +107,6 @@ packer.startup(function()
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, {})
       vim.keymap.set('n', '<C-n>', vim.diagnostic.goto_next, {})
       vim.keymap.set('n', '<C-p>', vim.diagnostic.goto_prev, {})
-    end
-  }
-  packer.use {
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update()
-    end,
-    config = function()
-      require 'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "cpp", "cmake", "lua" },
-        auto_install = false,
-        highlight = {
-          enable = true
-        },
-        indent = {
-          enable = true
-        }
-      }
     end
   }
   packer.use {
@@ -233,8 +226,8 @@ packer.startup(function()
                 size = 0.25, -- Can be float or integer > 1
               },
               { id = 'breakpoints', size = 0.25 },
-              { id = 'stacks', size = 0.25 },
-              { id = 'watches', size = 0.25 },
+              { id = 'stacks',      size = 0.25 },
+              { id = 'watches',     size = 0.25 },
             },
             size = 40,
             position = "left", -- Can be "left" or "right"
@@ -279,37 +272,37 @@ else
   vim.o.wildignore = vim.o.wildignore .. ',*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store'
 end
 
-vim.o.splitright = false
-vim.o.splitbelow = false
-vim.o.laststatus = 3
-vim.o.updatetime = 300
-vim.o.showcmd = true
-vim.o.showmode = false
-vim.o.ruler = true
-vim.o.cursorline = false
-vim.o.scrolloff = 8
+vim.o.splitright  = false
+vim.o.splitbelow  = false
+vim.o.laststatus  = 3
+vim.o.updatetime  = 300
+vim.o.showcmd     = true
+vim.o.showmode    = false
+vim.o.ruler       = true
+vim.o.cursorline  = false
+vim.o.scrolloff   = 8
 
-vim.o.autoindent = true
+vim.o.autoindent  = true
 vim.o.smartindent = true
-vim.o.shiftwidth = 2
-vim.o.tabstop = 2
-vim.o.smarttab = true
-vim.o.expandtab = true
-vim.o.number = true
+vim.o.shiftwidth  = 2
+vim.o.tabstop     = 2
+vim.o.smarttab    = true
+vim.o.expandtab   = true
+vim.o.number      = true
 
-vim.o.incsearch = true
-vim.o.smartcase = true
-vim.o.hlsearch = true
+vim.o.incsearch   = true
+vim.o.smartcase   = true
+vim.o.hlsearch    = true
 
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr   = 'nvim_treesitter#foldexpr()'
-vim.o.foldenable = false
+vim.o.foldmethod  = 'expr'
+vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable  = false
 
-vim.o.wrap = true
-vim.o.linebreak = true
+vim.o.wrap        = true
+vim.o.linebreak   = true
 
-vim.o.guifont = 'JetBrainsMono Nerd Font:h10'
-vim.o.mouse = 'a'
+vim.o.guifont     = 'JetBrainsMono Nerd Font:h10'
+vim.o.mouse       = 'a'
 
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = { '*.c', '*.cc', '*.cpp', '*.h', '*.hh', '*.hpp', '*.cmake', 'CMakeLists.txt',
