@@ -18,6 +18,7 @@ set $c 54
 set $v 55
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
+output "*" mode 1920x1080@165Hz
 # Read `man 5 sway-input` for more information about this section.
 input "type:keyboard" {
   xkb_layout us,ru
