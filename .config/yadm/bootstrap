@@ -34,8 +34,7 @@ paru --needed -S\
   skypeforlinux-preview-bin slack-desktop\
   spotify\
   rr\
-  jlink saleae-logic2\
-  distro-grub-themes-arch
+  jlink saleae-logic2
 
 pipx install pipenv
 pipx install poetry
