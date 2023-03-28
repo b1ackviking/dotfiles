@@ -26,7 +26,7 @@ input "type:keyboard" {
 }
 exec variety --profile $HOME/.config/variety
 exec dbus-update-activation-environment --all
-exec gnome-keyring-daemon --start --components=secrets,ssh
+exec gnome-keyring-daemon --start --components=secrets
 exec dunst
 exec nm-applet --indicator
 
