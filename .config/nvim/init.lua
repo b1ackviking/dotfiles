@@ -32,7 +32,7 @@ packer.startup(function()
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs( -4),
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           ['<C-Space>'] = cmp.mapping.complete(),
           ['<C-e>'] = cmp.mapping.abort(),
@@ -150,10 +150,12 @@ packer.startup(function()
   packer.use {
     'Mofiqul/vscode.nvim',
     config = function()
-      require 'vscode'.setup {
+      local theme = require('vscode')
+      theme.setup {
         transparent = true,
         disable_nvimtree_bg = true
       }
+      theme.load('dark')
     end
   }
   packer.use {
@@ -272,37 +274,39 @@ else
   vim.o.wildignore = vim.o.wildignore .. ',*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store'
 end
 
-vim.o.splitright  = false
-vim.o.splitbelow  = false
-vim.o.laststatus  = 3
-vim.o.updatetime  = 300
-vim.o.showcmd     = true
-vim.o.showmode    = false
-vim.o.ruler       = true
-vim.o.cursorline  = false
-vim.o.scrolloff   = 8
+vim.o.splitright    = false
+vim.o.splitbelow    = false
+vim.o.laststatus    = 3
+vim.o.updatetime    = 300
+vim.o.showcmd       = true
+vim.o.showmode      = false
+vim.o.ruler         = true
+vim.o.cursorline    = false
+vim.o.scrolloff     = 8
 
-vim.o.autoindent  = true
-vim.o.smartindent = true
-vim.o.shiftwidth  = 2
-vim.o.tabstop     = 2
-vim.o.smarttab    = true
-vim.o.expandtab   = true
-vim.o.number      = true
+vim.o.autoindent    = true
+vim.o.smartindent   = true
+vim.o.shiftwidth    = 2
+vim.o.tabstop       = 2
+vim.o.smarttab      = true
+vim.o.expandtab     = true
+vim.o.number        = true
 
-vim.o.incsearch   = true
-vim.o.smartcase   = true
-vim.o.hlsearch    = true
+vim.o.incsearch     = true
+vim.o.smartcase     = true
+vim.o.hlsearch      = true
 
-vim.o.foldmethod  = 'expr'
-vim.o.foldexpr    = 'nvim_treesitter#foldexpr()'
-vim.o.foldenable  = false
+vim.o.foldmethod    = 'expr'
+vim.o.foldexpr      = 'nvim_treesitter#foldexpr()'
+vim.o.foldenable    = false
 
-vim.o.wrap        = true
-vim.o.linebreak   = true
+vim.o.wrap          = true
+vim.o.linebreak     = true
 
-vim.o.guifont     = 'JetBrainsMono Nerd Font:h10'
-vim.o.mouse       = 'a'
+vim.o.guifont       = 'JetBrainsMono Nerd Font:h10'
+vim.o.mouse         = 'a'
+
+vim.o.termguicolors = true
 
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = { '*.c', '*.cc', '*.cpp', '*.h', '*.hh', '*.hpp', '*.cmake', 'CMakeLists.txt',
@@ -332,7 +336,3 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
       'rnu', vim.api.nvim_get_mode()['mode'] ~= 'i', { scope = 'local' })
   end
 })
-
-vim.o.termguicolors = true
-vim.o.background = 'dark'
-vim.cmd('colorscheme vscode')
