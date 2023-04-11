@@ -176,7 +176,6 @@ packer.startup(function()
       vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>', {})
     end
   }
-  packer.use 'editorconfig/editorconfig-vim'
   packer.use {
     'mfussenegger/nvim-dap',
     config = function()
