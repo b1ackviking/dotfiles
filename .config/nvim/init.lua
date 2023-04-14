@@ -310,7 +310,7 @@ vim.o.termguicolors = true
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = { '*.c', '*.cc', '*.cpp', '*.h', '*.hh', '*.hpp', '*.cmake', 'CMakeLists.txt',
     '*.py', '*.lua' },
-  callback = function() vim.lsp.buf.formatting_sync(nil, 1000) end
+  callback = function() vim.lsp.buf.format() end
 })
 
 vim.api.nvim_create_autocmd({ 'InsertEnter' }, {
