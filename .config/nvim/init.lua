@@ -60,16 +60,7 @@ packer.startup(function()
           '--header-insertion=iwyu',
           '--header-insertion-decorators',
           '--query-driver="/**/*"'
-        },
-        filetypes = { 'c', 'cc', 'cpp', 'h', 'hpp' },
-        root_dir = lspconfig.util.root_pattern(
-          '.clangd',
-          '.clang-format',
-          '.clang-tidy',
-          'compile_commands.json',
-          'compile_flags.txt',
-          '.git'),
-        capabilities = capabilities
+        }
       }
 
       lspconfig.cmake.setup {}
@@ -97,6 +88,8 @@ packer.startup(function()
           }
         }
       }
+      require 'lspconfig'.luau_lsp.setup {}
+      require 'lspconfig'.rust_analyzer.setup {}
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
@@ -105,6 +98,7 @@ packer.startup(function()
       vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, {})
       vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, {})
+      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})
       vim.keymap.set('n', '<C-n>', vim.diagnostic.goto_next, {})
       vim.keymap.set('n', '<C-p>', vim.diagnostic.goto_prev, {})
     end
@@ -163,7 +157,7 @@ packer.startup(function()
     config = function()
       require 'lualine'.setup {
         options = {
-          theme = 'codedark'
+          theme = 'auto'
         }
       }
     end
@@ -309,7 +303,7 @@ vim.o.termguicolors = true
 
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = { '*.c', '*.cc', '*.cpp', '*.h', '*.hh', '*.hpp', '*.cmake', 'CMakeLists.txt',
-    '*.py', '*.lua' },
+    '*.py', '*.lua', '*.luau', '*.rs', '*.js', '*.ts' },
   callback = function() vim.lsp.buf.format() end
 })
 
