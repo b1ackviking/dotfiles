@@ -27,18 +27,20 @@ sudo pacman --needed -S\
   ttf-jetbrains-mono ttf-ubuntu-font-family gnu-free-fonts noto-fonts\
   ttf-fira-code ttf-carlito ttf-opensans ttf-jetbrains-mono-nerd
 
-git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si && cd .. && rm -r paru
+git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && makepkg -si && cd .. && rm -r paru-bin
 
 paru --needed -S\
   onlyoffice-bin\
-  skypeforlinux-preview-bin slack-desktop\
+  skypeforlinux-preview-bin\
+  slack-desktop\
   spotify\
   rr\
-  jlink saleae-logic2
+  jlink\
+  saleae-logic2
 
 pipx install pipenv
 pipx install poetry
-pipx install cmake_language_server
+pipx install cmake-language-server
 pipx install "python-lsp-server[all]"
 
 sudo npm i -g dockerfile-language-server-nodejs yaml-language-server
