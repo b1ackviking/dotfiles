@@ -31,8 +31,8 @@ exec dunst
 exec nm-applet --indicator
 
 exec swayidle -w \
-  timeout 300 'swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)' \
-  timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+  timeout 600 'swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)' \
+  timeout 700 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
   before-sleep 'playerctl pause' \
   before-sleep 'swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)'
 
