@@ -107,6 +107,7 @@ alias vim=nvim
 alias vi=nvim
 alias cat=bat
 alias icat="kitty +kitten icat"
+alias lg=lazygit
 
 export PATH=$HOME/.local/bin:$PATH
 

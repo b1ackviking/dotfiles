@@ -9,6 +9,7 @@ alias ls='ls --color=auto'
 alias vim=nvim
 alias cat=bat
 alias icat="kitty +kitten icat"
+alias lg=lazygit
 
 export PATH=$HOME/.local/bin:$PATH
 
