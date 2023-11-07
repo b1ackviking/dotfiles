@@ -15,7 +15,7 @@ sudo pacman --needed -S\
   xclip rofi scrot gxkb feh\
   lua-language-server\
   python python-pip python-pipx\
-  git lazygit binutils make m4 cmake ccache ninja\
+  git lazygit binutils make cmake ccache ninja\
   gcc gdb clang libc++ llvm llvm-libs lld lldb cppcheck debuginfod\
   arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib arm-none-eabi-gdb\
   docker man-db minicom openocd\
