@@ -1,9 +1,6 @@
 CompileFlags:
   # adjust for your compile_commands.json location
   CompilationDatabase: build
-  # clang 14 does not have c++23 flag yet
-  Add: [-std=c++2b]
-  Remove: [-std=c++23]
 
 Hover:
  ShowAKA: Yes
