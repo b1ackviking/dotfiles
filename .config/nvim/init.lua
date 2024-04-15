@@ -48,6 +48,9 @@ vim.o.linebreak     = true
 vim.o.guifont       = 'JetBrainsMono Nerd Font:h10'
 vim.o.mouse         = 'a'
 
+vim.o.spelllang     = 'en_us'
+vim.o.spell         = true
+
 vim.o.termguicolors = true
 
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
