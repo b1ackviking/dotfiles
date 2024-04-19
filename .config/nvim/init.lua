@@ -200,7 +200,6 @@ require('lazy').setup({
           delay = 300,
         },
         current_line_blame_formatter = '<author>, <author_time:%d %b %Y %H:%M> - <summary>',
-        yadm = { enable = true }
       }
     end
   },
