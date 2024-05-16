@@ -44,6 +44,7 @@ vim.o.foldenable    = false
 
 vim.o.wrap          = true
 vim.o.linebreak     = true
+vim.o.smoothscroll  = true
 
 vim.o.guifont       = 'JetBrainsMono Nerd Font:h10'
 vim.o.mouse         = 'a'
@@ -89,12 +90,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) then
-  vim.fn.system({ 'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path })
-  vim.api.nvim_command 'packadd packer.nvim'
-end
-
 require('lazy').setup({
   {
     'hrsh7th/vim-vsnip',
@@ -137,7 +132,6 @@ require('lazy').setup({
   {
     'neovim/nvim-lspconfig',
     config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require 'lspconfig'
       lspconfig.clangd.setup {
         cmd = {
@@ -184,11 +178,15 @@ require('lazy').setup({
       vim.keymap.set('n', 'gR', vim.lsp.buf.references, {})
       vim.keymap.set('n', 'gr', vim.lsp.buf.rename, {})
       vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, {})
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, {})
       vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})
       vim.keymap.set('n', '<C-n>', vim.diagnostic.goto_next, {})
       vim.keymap.set('n', '<C-p>', vim.diagnostic.goto_prev, {})
+      vim.keymap.set('n', '<leader>i',
+        function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        end,
+        {})
     end
   },
   {
