@@ -41,9 +41,9 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindcode $mod+$d exec fuzzel -w 60
 bindcode $mod+$l exec swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)
 
-bindsym Print exec grim $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
-bindsym Ctrl+Print exec sh $HOME/.config/sway/window_screenshot.sh
-bindcode $mod+Shift+$s exec grim -g "$(slurp -d)" $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png - | wl-copy
+bindsym Print exec echo $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png | xargs -I {} sh -c 'grim {} && wl-copy < {}'
+bindsym Ctrl+Print exec sh $HOME/.config/sway/window_screenshot.sh $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png
+bindcode $mod+Shift+$s exec echo $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png | xargs -I {} sh -c 'grim -g "$(slurp -d)" {} && wl-copy < {}'
 
 # TODO: use brightnessctl
 bindsym XF86MonBrightnessUp exec --no-startup-id sudo xbacklight -inc 10 && notify-send 'brightness up'
