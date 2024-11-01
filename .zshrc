@@ -102,28 +102,9 @@ source $ZSH/oh-my-zsh.sh
 
 unsetopt share_history
 
-export EDITOR=nvim
-alias vim=nvim
-alias vi=nvim
-alias cat=bat
-alias icat="kitty +kitten icat"
-alias lg=lazygit
-
-export PATH=$HOME/.local/bin:$PATH
-
-export CMAKE_GENERATOR=Ninja
-export CMAKE_BUILD_TYPE=RelWithDebInfo
-export CMAKE_CONFIGURATION_TYPES="Debug;Release;MinSizeRel;RelWithDebInfo"
-export CMAKE_CONFIG_TYPE=RelWithDebInfo
-export CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
-export CMAKE_COLOR_DIAGNOSTICS=ON
-export CTEST_OUTPUT_ON_FAILURE=TRUE
-export CTEST_PROGRESS_OUTPUT=TRUE
-export CTEST_PARALLEL_LEVEL=
-
-export CONAN_CMAKE_GENERATOR=Ninja
-export CONAN_SYSREQUIRES_MODE=verify
-export CONAN_SYSREQUIRES_SUDO=True
+if [ -e $HOME/.env ]; then
+  source $HOME/.env;
+fi
 
 if [[ `uname` == "Linux" ]]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
