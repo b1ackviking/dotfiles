@@ -147,7 +147,6 @@ require('lazy').setup({
 
       lspconfig.cmake.setup {}
       lspconfig.pylsp.setup {}
-      lspconfig.dockerls.setup {}
       lspconfig.lua_ls.setup {
         settings = {
           Lua = {
