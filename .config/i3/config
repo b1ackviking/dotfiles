@@ -15,7 +15,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+d exec "rofi -combi-modi window,drun,ssh -theme Arc-Dark -show combi -show-icons"
 bindsym $mod+l exec convert -resize $(xdpyinfo | grep dimensions | cut -d\  -f7)! \
-                      ~/Pictures/wp/$(ls ~/Pictures/wp | sort -R | head -n 1) RGB:- \
+                      /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1) RGB:- \
                     | i3lock -t -e -f --raw $(xdpyinfo | grep dimensions | cut -d\  -f7):rgb -i /dev/stdin
 
 bindsym Print exec scrot $HOME/Pictures/screenshot-%Y-%m-%d-%H:%M:%S.png -e 'xclip -selection clipboard -t image/png -i $f'
