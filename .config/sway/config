@@ -30,16 +30,17 @@ exec gnome-keyring-daemon --start --components=secrets
 exec dunst
 exec nm-applet --indicator
 
+set $lockscreen 'swaylock -f -k -l -i /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1)'
 exec swayidle -w \
-  timeout 600 'swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)' \
+  timeout 600 $lockscreen \
   timeout 700 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
   before-sleep 'playerctl pause' \
-  before-sleep 'swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)'
+  before-sleep $lockscreen
 
 bindcode $mod+Shift+$q kill
 bindsym $mod+Return exec i3-sensible-terminal
 bindcode $mod+$d exec fuzzel -w 60
-bindcode $mod+$l exec swaylock -f -k -l -i $(xdg-user-dir PICTURES)/wp/$(ls $(xdg-user-dir PICTURES)/wp | sort -R | head -n 1)
+bindcode $mod+$l exec $lockscreen
 
 bindsym Print exec echo $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png | xargs -I {} sh -c 'grim {} && wl-copy < {}'
 bindsym Ctrl+Print exec sh $HOME/.config/sway/window_screenshot.sh $(xdg-user-dir PICTURES)/screenshot-$(date +%Y-%m-%d-%H:%M:%S).png
