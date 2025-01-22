@@ -46,7 +46,7 @@ vim.o.wrap          = true
 vim.o.linebreak     = true
 vim.o.smoothscroll  = true
 
-vim.o.guifont       = 'JetBrainsMono Nerd Font:h10'
+vim.o.guifont       = 'JetBrainsMono Nerd Font:h12'
 vim.o.mouse         = 'a'
 
 vim.o.spelllang     = 'en_us'
