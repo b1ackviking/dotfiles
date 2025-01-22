@@ -1,0 +1,18 @@
+{{ if ne .chezmoi.os "windows" }}
+AppData/
+{{ else }}
+.config/alacritty/
+.config/bat/
+.config/kitty/
+.config/nvim/
+.zshrc
+{{ end }}
+
+{{ if ne .chezmoi.os "darwin" }}
+Library/
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.config/lazygit/
+.bashrc
+{{ end }}
