@@ -1,3 +1,8 @@
 refresher:
   refreshInterval: 10 # file/submodule refresh interval in seconds
   fetchInterval: 300 # re-fetch interval in seconds
+os:
+  editPreset: 'nvim'
+gui:
+  nerdFontsVersion: "3"
+  showFileTree: false
