@@ -52,6 +52,7 @@ vim.o.mouse         = 'a'
 vim.o.spelllang     = 'en_us'
 vim.o.spell         = true
 
+vim.o.background    = 'dark'
 vim.o.termguicolors = true
 
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
@@ -225,7 +226,15 @@ require('lazy').setup({
         transparent = true,
         disable_nvimtree_bg = true
       }
-      theme.load('dark')
+    end
+  },
+  {
+    'ellisonleao/gruvbox.nvim',
+    config = function()
+      local theme = require('gruvbox')
+      theme.setup {
+        transparent_mode = true,
+      }
     end
   },
   {
@@ -324,3 +333,6 @@ require('lazy').setup({
     end
   }
 })
+
+vim.cmd.colorscheme "vscode"
+-- vim.cmd.colorscheme "gruvbox"
