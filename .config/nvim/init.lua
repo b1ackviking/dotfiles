@@ -84,6 +84,26 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
+-- Snippets
+vim.keymap.set({ 'i', 's' }, '<Tab>', function()
+  if vim.snippet.active({ direction = 1 }) then
+    vim.schedule(function()
+      vim.snippet.jump(1)
+    end)
+  else
+    return '<Tab>'
+  end
+end, { expr = true, silent = true })
+vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
+  if vim.snippet.active({ direction = -1 }) then
+    vim.schedule(function()
+      vim.snippet.jump(-1)
+    end)
+  else
+    return '<S-Tab>'
+  end
+end, { expr = true, silent = true })
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
   local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git',
@@ -103,26 +123,14 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   {
-    'hrsh7th/vim-vsnip',
-    config = function()
-      vim.cmd([[
-        " Jump forward or backward
-        imap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-        smap <expr> <Tab>   vsnip#jumpable(1)  ? '<Plug>(vsnip-jump-next)' : '<Tab>'
-        imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-        smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'
-      ]])
-    end
-  },
-  {
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-vsnip' },
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer' },
     config = function()
       local cmp = require 'cmp'
       cmp.setup({
         snippet = {
           expand = function(args)
-            vim.fn['vsnip#anonymous'](args.body)
+            vim.snippet.expand(args.body)
           end,
         },
         mapping = cmp.mapping.preset.insert({
@@ -134,7 +142,6 @@ require('lazy').setup({
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
-          { name = 'vsnip' },
           { name = 'buffer' },
         })
       })
@@ -144,6 +151,7 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     config = function()
       local lspconfig = require 'lspconfig'
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       lspconfig.clangd.setup {
         cmd = {
           'clangd',
@@ -153,11 +161,16 @@ require('lazy').setup({
           '--header-insertion=iwyu',
           '--header-insertion-decorators',
           '--query-driver="/**/*"'
-        }
+        },
+        capabilities = capabilities
       }
 
-      lspconfig.cmake.setup {}
-      lspconfig.pylsp.setup {}
+      lspconfig.cmake.setup {
+        capabilities = capabilities
+      }
+      lspconfig.pylsp.setup {
+        capabilities = capabilities
+      }
       lspconfig.lua_ls.setup {
         settings = {
           Lua = {
@@ -178,10 +191,15 @@ require('lazy').setup({
               enable = false,
             },
           }
-        }
+        },
+        capabilities = capabilities
       }
-      require 'lspconfig'.luau_lsp.setup {}
-      require 'lspconfig'.rust_analyzer.setup {}
+      require 'lspconfig'.luau_lsp.setup {
+        capabilities = capabilities
+      }
+      require 'lspconfig'.rust_analyzer.setup {
+        capabilities = capabilities
+      }
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
       vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
