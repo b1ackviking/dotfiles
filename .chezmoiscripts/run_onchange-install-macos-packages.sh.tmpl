@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+which -s brew
+if [[ $? != 0 ]] ; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  brew update
+fi
+
+TERMINAL="wezterm bat neovim lua-language-server yazi zsh-syntax-highlighting"
+DEV="cmake ninja lazygit llvm"
+FONTS="font-jetbrains-mono-nerd-font"
+APPS="firefox thunderbird"
+PYTHON="python pipx"
+PIPX_PKGS="poetry cmake-language-server python-lsp-server"
+
+brew install $TERMINAL $DEV $FONTS $PYTHON $APPS
+
+for pkg in $PIPX_PKGS; do
+  pipx install $pkg
+done
+{{ end }}
