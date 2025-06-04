@@ -1,0 +1,30 @@
+[user]
+  email = {{ .email }}
+  name = Vladimir Chistyakov
+[init]
+  defaultBranch = main
+  templateDir = ~/.config/git/template
+[core]
+{{- if eq .chezmoi.os "windows" }}
+  autocrlf = true
+{{- else }}
+  autocrlf = input
+{{- end }}
+[pull]
+  rebase = true
+[status]
+  branch = true
+  short = true
+[diff]
+  renames = copies
+[submodule]
+  recurse = true
+[rebase]
+  autoStash = true
+  autoSquash = true
+[advice]
+  detachedHead = false
+[blame]
+  ignoreRevsFile = .git-blame-ignore-revs
+[url "git@github.com:"]
+  insteadOf = "gh:"
