@@ -6,6 +6,7 @@ vim.keymap.set('n', '<leader>h', ':set hlsearch!<CR>', {})
 vim.keymap.set('v', '<', '<gv', {})
 vim.keymap.set('v', '>', '>gv', {})
 
+vim.o.winborder = 'rounded'
 vim.o.path = vim.o.path .. '**'
 vim.o.wildmenu = true
 -- Ignore compiled files
@@ -104,6 +105,82 @@ vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
   end
 end, { expr = true, silent = true })
 
+-- LSP
+vim.diagnostic.config({
+  virtual_lines = {
+    current_line = true,
+  },
+})
+
+vim.lsp.config('*', {
+  root_markers = {
+    '.git', '.clangd', '.clang-tidy', '.clang-format', 'compile_commands.json',
+    'compile_flags.txt', 'configure.ac', 'pyproject.toml', 'setup.py',
+    'setup.cfg', 'requirements.txt', 'Pipfile', '.luarc.json', '.luarc.jsonc',
+    '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml',
+  }
+})
+
+{{ if eq .chezmoi.os "darwin" -}}
+local brew_llvm_path = vim.fn.system('brew --prefix llvm'):gsub('%s+', '')
+{{- end }}
+local clangd_path = brew_llvm_path and (brew_llvm_path .. '/bin/clangd') or 'clangd'
+vim.lsp.config.clangd = {
+  cmd = {
+    clangd_path,
+    '--enable-config',
+    '--background-index',
+    '--clang-tidy',
+    '--header-insertion=iwyu',
+    '--header-insertion-decorators',
+    '--query-driver="/**/*"',
+    '--completion-style=bundled',
+  },
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'javascript' },
+}
+vim.lsp.config.cmake = {
+  cmd = { 'cmake-language-server' },
+  filetypes = { 'cmake' },
+  init_options = { buildDirectory = 'build' },
+}
+vim.lsp.config.pylsp = {
+  cmd = { 'pylsp' },
+  filetypes = { 'python' },
+}
+vim.lsp.config.luals = {
+  cmd = { 'lua-language-server' },
+  filetypes = { 'lua' },
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT', },
+      diagnostics = { globals = { 'vim' }, },
+      workspace = { library = vim.api.nvim_get_runtime_file('', true), },
+      telemetry = { enable = false, },
+    }
+  },
+}
+vim.lsp.enable({ 'clangd', 'cmake', 'pylsp', 'luals' })
+
+vim.keymap.del('n', 'gO')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grn')
+vim.keymap.del('n', 'grr')
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
+vim.keymap.set('n', 'gR', vim.lsp.buf.references, {})
+vim.keymap.set('n', 'gr', vim.lsp.buf.rename, {})
+vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, {})
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, {})
+vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})
+vim.keymap.set('n', '<leader>i',
+  function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end,
+  {})
+
+-- Plugins
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
   local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git',
@@ -145,76 +222,6 @@ require('lazy').setup({
           { name = 'buffer' },
         })
       })
-    end
-  },
-  {
-    'neovim/nvim-lspconfig',
-    config = function()
-      local lspconfig = require 'lspconfig'
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      lspconfig.clangd.setup {
-        cmd = {
-          'clangd',
-          '--enable-config',
-          '--background-index',
-          '--clang-tidy',
-          '--header-insertion=iwyu',
-          '--header-insertion-decorators',
-          '--query-driver="/**/*"'
-        },
-        capabilities = capabilities
-      }
-
-      lspconfig.cmake.setup {
-        capabilities = capabilities
-      }
-      lspconfig.pylsp.setup {
-        capabilities = capabilities
-      }
-      lspconfig.lua_ls.setup {
-        settings = {
-          Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { 'vim' },
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-              enable = false,
-            },
-          }
-        },
-        capabilities = capabilities
-      }
-      require 'lspconfig'.luau_lsp.setup {
-        capabilities = capabilities
-      }
-      require 'lspconfig'.rust_analyzer.setup {
-        capabilities = capabilities
-      }
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
-      vim.keymap.set('n', 'gR', vim.lsp.buf.references, {})
-      vim.keymap.set('n', 'gr', vim.lsp.buf.rename, {})
-      vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, {})
-      vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, {})
-      vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, {})
-      vim.keymap.set('n', '<C-n>', vim.diagnostic.goto_next, {})
-      vim.keymap.set('n', '<C-p>', vim.diagnostic.goto_prev, {})
-      vim.keymap.set('n', '<leader>i',
-        function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-        end,
-        {})
     end
   },
   {
