@@ -1,6 +1,3 @@
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader>h', ':set hlsearch!<CR>', {})
 vim.keymap.set('v', '<', '<gv', {})
@@ -272,12 +269,27 @@ require('lazy').setup({
       }
     end
   },
-  'kyazdani42/nvim-web-devicons',
   {
     'kyazdani42/nvim-tree.lua',
+    dependencies = { 'kyazdani42/nvim-web-devicons' },
     config = function()
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
       require 'nvim-tree'.setup {}
       vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>', {})
+    end
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local builtin = require('telescope.builtin')
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+      vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope LSP references' })
     end
   },
   {
