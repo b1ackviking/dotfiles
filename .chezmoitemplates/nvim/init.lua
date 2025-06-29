@@ -82,26 +82,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
--- Snippets
-vim.keymap.set({ 'i', 's' }, '<Tab>', function()
-  if vim.snippet.active({ direction = 1 }) then
-    vim.schedule(function()
-      vim.snippet.jump(1)
-    end)
-  else
-    return '<Tab>'
-  end
-end, { expr = true, silent = true })
-vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
-  if vim.snippet.active({ direction = -1 }) then
-    vim.schedule(function()
-      vim.snippet.jump(-1)
-    end)
-  else
-    return '<S-Tab>'
-  end
-end, { expr = true, silent = true })
-
 -- LSP
 vim.diagnostic.config({
   virtual_lines = {
