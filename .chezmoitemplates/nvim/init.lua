@@ -115,6 +115,10 @@ vim.lsp.config.clangd = {
   },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'javascript' },
 }
+vim.lsp.config.rust_analyzer = {
+  cmd = { 'rust-analyzer' },
+  filetypes = { 'rust' },
+}
 vim.lsp.config.cmake = {
   cmd = { 'cmake-language-server' },
   filetypes = { 'cmake' },
@@ -136,7 +140,7 @@ vim.lsp.config.luals = {
     }
   },
 }
-vim.lsp.enable({ 'clangd', 'cmake', 'pylsp', 'luals' })
+vim.lsp.enable({ 'clangd', 'rust_analyzer', 'cmake', 'pylsp', 'luals' })
 
 vim.keymap.del('n', 'gO')
 vim.keymap.del('n', 'gra')
