@@ -18,17 +18,17 @@ set $c 54
 set $v 55
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
-output "*" mode 1920x1080@165Hz
+output "*" mode 1920x1080@165Hz bg /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1) stretch
 # Read `man 5 sway-input` for more information about this section.
 input "type:keyboard" {
   xkb_layout us,ru
   xkb_options grp:alt_shift_toggle
 }
-exec variety --profile $HOME/.config/variety
-exec dbus-update-activation-environment --all
-exec gnome-keyring-daemon --start --components=secrets
+input "type:pointer" {
+  pointer_accel -1
+}
+#exec dbus-update-activation-environment --all
 exec dunst
-exec nm-applet --indicator
 
 set $lockscreen 'swaylock -f -k -l -i /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1)'
 exec swayidle -w \
