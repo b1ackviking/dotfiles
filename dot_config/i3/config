@@ -5,10 +5,8 @@ set $mod Mod4
 
 exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 165.00
 exec_always "setxkbmap -layout us,ru -option grp:alt_shift_toggle"
-exec --no-startup-id variety --profile $HOME/.config/variety
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
-exec --no-startup-id nm-applet
 exec --no-startup-id gxkb
 
 bindsym $mod+Shift+q kill

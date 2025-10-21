@@ -21,4 +21,5 @@ Library/
 .config/paru/
 .config/sway/
 .config/i3/
+.config/picom/
 {{ end }}
