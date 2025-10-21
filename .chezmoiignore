@@ -6,6 +6,7 @@ Documents/
 .config/nvim/
 .config/bat/
 .zshrc
+.profile
 {{ end }}
 
 {{ if ne .chezmoi.os "darwin" }}
