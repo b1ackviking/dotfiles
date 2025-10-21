@@ -4,6 +4,7 @@ font pango:monospace 8
 set $mod Mod4
 
 exec --no-startup-id xrandr --output DP-0 --mode 1920x1080 --rate 165.00
+exec_always --no-startup-id feh --bg-scale /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1)
 exec_always "setxkbmap -layout us,ru -option grp:alt_shift_toggle"
 exec --no-startup-id dunst
 exec --no-startup-id picom -b
