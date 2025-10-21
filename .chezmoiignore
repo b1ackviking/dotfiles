@@ -23,4 +23,5 @@ Library/
 .config/sway/
 .config/i3/
 .config/picom/
+.xinitrc
 {{ end }}
