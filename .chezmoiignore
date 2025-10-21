@@ -16,3 +16,9 @@ Library/
 .config/lazygit/
 .bashrc
 {{ end }}
+
+{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "arch") }}
+.config/paru/
+.config/sway/
+.config/i3/
+{{ end }}
