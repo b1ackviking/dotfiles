@@ -1,0 +1,89 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+
+{{ if eq .chezmoi.osRelease.id "arch" -}}
+GRUB="grub efibootmgr"
+ZSH="zsh zsh-syntax-highlighting"
+NETWORK="iwd systemd-resolvconf wireguard-tools"
+AUDIO="pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber"
+TERMINAL="wezterm bat tree tmux trash-cli zip unzip 7zip htop yazi"
+VIM="neovim ripgrep lua-language-server"
+DRIVERS="nvidia-open"
+I3WM="i3-wm i3lock i3status picom xclip rofi scrot gxkb feh imagemagick \
+      xorg-server xorg-xinit xorg-xrandr xorg-xdpyinfo"
+SWAY="sway swaybg swayidle swaylock wl-clipboard xorg-xwayland fuzzel grim slurp jq"
+COMMON_WM="dunst archlinux-wallpaper brightnessctl playerctl xdg-user-dirs"
+APPS="firefox vlc"
+FONTS="ttf-droid ttf-hack ttf-dejavu ttf-liberation ttf-font-awesome \
+       ttf-jetbrains-mono ttf-ubuntu-font-family gnu-free-fonts noto-fonts \
+       ttf-fira-code ttf-carlito ttf-opensans ttf-jetbrains-mono-nerd"
+DEV="git lazygit cmake ninja clang libc++ gdb lldb python uv"
+#DEV_COMMON="cppcheck nodejs npm"
+#DEV_BUILD="ccache llvm llvm-libs lld mold"
+#DEV_DBG="rr debuginfod"
+#DEV_ARM="arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib arm-none-eabi-gdb"
+#DEV_EMBEDDED="openocd jlink saleae-logic2"
+#DEV_MISC="minicom docker lazydocker podman doxygen graphviz man-db"
+#COMMON_MISC="gimp blender audacity thunderbird qbittorrent onlyoffice-bin wireshark-qt"
+#MESSENGERS="discord telegram-desktop profanity skypeforlinux-preview-bin slack-desktop"
+#FS_UTILS="exfatprogs dosfstools cifs-utils"
+#UTILS="kitty usbutils diffutils dos2unix"
+
+sudo sed -i 's/#Color/Color/' /etc/pacman.conf
+sudo pacman --needed -S $DEV
+
+which paru
+if [[ $? != 0 ]] ; then
+  git clone https://aur.archlinux.org/paru-bin.git
+  cd paru-bin
+  makepkg -si
+  cd ..
+  rm -r paru-bin
+fi
+
+paru --needed -S $GRUB $ZSH $NETWORK $AUDIO $TERMINAL $VIM \
+                 $DRIVERS $I3WM $SWAY $COMMON_WM $APPS $FONTS
+
+if [ ! -e /etc/iwd/main.conf ]; then
+  sudo echo "[General]" > /etc/iwd/main.conf
+  sudo echo "EnableNetworkConfiguration=true" >> /etc/iwd/main.conf
+  sudo systemctl enable iwd.service
+fi
+
+if [ ! -L /etc/resolv.conf ]; then
+  sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+  sudo systemctl enable systemd-resolved.service
+fi
+
+if [[ `groups` != *"seat"* ]]; then
+  sudo systemctl enable seatd.service
+  sudo usermod -aG seat $USER
+fi
+
+{{ else if eq .chezmoi.osRelease.id "ubuntu" }}
+sudo apt update
+sudo apt upgrade -y
+sudo apt autoremove -y
+
+which brew
+if [[ $? != 0 ]] ; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew install bat btop chezmoi lazydocker lazygit llvm lua-language-server neovim ripgrep rustup tmux uv yazi
+
+{{ end }}
+
+if [ ! -e $HOME/.oh-my-zsh ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if [ ! -e $HOME/.config/tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
+fi
+
+UV_TOOLS="cmake-language-server python-lsp-server"
+for pkg in $UV_TOOLS; do
+  uv tool install $pkg
+done
+{{ end }}
