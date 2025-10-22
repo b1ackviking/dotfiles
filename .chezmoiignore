@@ -2,11 +2,11 @@
 AppData/
 Documents/
 {{ else }}
-.config/alacritty/
-.config/nvim/
 .config/bat/
-.zshrc
+.config/gdb/
+.config/nvim/
 .profile
+.zshrc
 {{ end }}
 
 {{ if ne .chezmoi.os "darwin" }}
@@ -18,10 +18,10 @@ Library/
 .bashrc
 {{ end }}
 
-{{ if and (eq .chezmoi.os "linux") (ne .chezmoi.osRelease.id "arch") }}
-.config/paru/
-.config/sway/
+{{ if or (ne .chezmoi.os "linux") (ne .chezmoi.osRelease.id "arch") }}
 .config/i3/
+.config/paru/
 .config/picom/
+.config/sway/
 .xinitrc
 {{ end }}
