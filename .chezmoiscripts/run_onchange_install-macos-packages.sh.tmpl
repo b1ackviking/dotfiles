@@ -1,20 +1,28 @@
 {{- if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
-which -s brew
+which brew
 if [[ $? != 0 ]] ; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-TERMINAL="wezterm bat neovim ripgrep lua-language-server yazi zsh-syntax-highlighting"
+TERMINAL="wezterm bat neovim ripgrep lua-language-server yazi zsh-syntax-highlighting uv sevenzip"
 DEV="cmake ninja lazygit llvm"
 FONTS="font-jetbrains-mono-nerd-font"
 APPS="firefox thunderbird"
-PYTHON="python pipx"
-PIPX_PKGS="poetry cmake-language-server python-lsp-server"
+PYTHON="python"
 
 brew install $TERMINAL $DEV $FONTS $PYTHON $APPS
 
-for pkg in $PIPX_PKGS; do
-  pipx install $pkg
+if [ ! -e $HOME/.oh-my-zsh ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if [ ! -e $HOME/.config/tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
+fi
+
+UV_TOOLS="cmake-language-server python-lsp-server"
+for pkg in $UV_TOOLS; do
+  uv tool install $pkg
 done
 {{ end }}
