@@ -229,6 +229,7 @@ require('lazy').setup({
     end
   },
   'Yggdroot/indentLine',
+  'RostislavArts/naysayer.nvim',
   {
     'Mofiqul/vscode.nvim',
     config = function()
@@ -362,3 +363,4 @@ require('lazy').setup({
 
 vim.cmd.colorscheme "vscode"
 -- vim.cmd.colorscheme "gruvbox"
+-- vim.cmd.colorscheme "naysayer"
