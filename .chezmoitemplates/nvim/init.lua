@@ -82,6 +82,11 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
   end
 })
 
+vim.api.nvim_create_autocmd({ 'QuickFixCmdPost' }, {
+  pattern = { '*' },
+  callback = function() vim.cmd.cwindow() end,
+})
+
 -- LSP
 vim.diagnostic.config({
   virtual_lines = {
