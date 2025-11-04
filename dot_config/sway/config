@@ -18,7 +18,9 @@ set $c 54
 set $v 55
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
-output "*" mode 1920x1080@165Hz bg /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1) stretch
+output "*" mode 1920x1080@165Hz \
+           bg /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1) stretch \
+           adaptive_sync off
 # Read `man 5 sway-input` for more information about this section.
 input "type:keyboard" {
   xkb_layout us,ru
@@ -31,11 +33,11 @@ input "type:pointer" {
 exec dunst
 
 set $lockscreen 'swaylock -f -k -l -i /usr/share/backgrounds/archlinux/$(ls /usr/share/backgrounds/archlinux | sort -R | head -n 1)'
-exec swayidle -w \
-  timeout 600 $lockscreen \
-  timeout 700 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-  before-sleep 'playerctl pause' \
-  before-sleep $lockscreen
+# exec swayidle -w \
+#   timeout 600 $lockscreen \
+#   timeout 700 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#   before-sleep 'playerctl pause' \
+#   before-sleep $lockscreen
 
 bindcode $mod+Shift+$q kill
 bindsym $mod+Return exec i3-sensible-terminal
