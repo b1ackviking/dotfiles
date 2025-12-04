@@ -7,7 +7,7 @@ ZSH="zsh zsh-syntax-highlighting"
 NETWORK="iwd systemd-resolvconf wireguard-tools"
 AUDIO="pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber"
 TERMINAL="wezterm bat tree tmux trash-cli zip unzip 7zip htop yazi"
-VIM="neovim ripgrep lua-language-server"
+VIM="neovim ripgrep lua-language-server neocmakelsp"
 DRIVERS="nvidia-open"
 I3WM="i3-wm i3lock i3status picom xclip rofi scrot gxkb feh imagemagick \
       xorg-server xorg-xinit xorg-xrandr xorg-xdpyinfo"
@@ -70,7 +70,7 @@ if [[ $? != 0 ]] ; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-brew install bat btop chezmoi lazydocker lazygit llvm lua-language-server neovim ripgrep rustup tmux uv yazi
+brew install bat btop chezmoi lazydocker lazygit llvm lua-language-server neocmakelsp neovim ripgrep rustup tmux uv yazi
 
 {{ end }}
 
@@ -82,7 +82,7 @@ if [ ! -e $HOME/.config/tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
 fi
 
-UV_TOOLS="cmake-language-server python-lsp-server"
+UV_TOOLS="python-lsp-server"
 for pkg in $UV_TOOLS; do
   uv tool install $pkg
 done

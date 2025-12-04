@@ -5,13 +5,14 @@ if [[ $? != 0 ]] ; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-TERMINAL="wezterm bat neovim ripgrep lua-language-server yazi zsh-syntax-highlighting uv sevenzip"
+TERMINAL="wezterm bat yazi zsh-syntax-highlighting uv sevenzip"
+VIM="neovim ripgrep lua-language-server neocmakelsp"
 DEV="cmake ninja lazygit llvm"
 FONTS="font-jetbrains-mono-nerd-font"
 APPS="firefox thunderbird"
 PYTHON="python"
 
-brew install $TERMINAL $DEV $FONTS $PYTHON $APPS
+brew install $TERMINAL $VIM $DEV $FONTS $PYTHON $APPS
 
 if [ ! -e $HOME/.oh-my-zsh ]; then
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -21,7 +22,7 @@ if [ ! -e $HOME/.config/tmux/plugins/tpm ]; then
   git clone https://github.com/tmux-plugins/tpm $HOME/.config/tmux/plugins/tpm
 fi
 
-UV_TOOLS="cmake-language-server python-lsp-server"
+UV_TOOLS="python-lsp-server"
 for pkg in $UV_TOOLS; do
   uv tool install $pkg
 done
