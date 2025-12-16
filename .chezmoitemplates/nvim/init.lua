@@ -22,6 +22,7 @@ vim.o.showcmd       = true
 vim.o.showmode      = false
 vim.o.ruler         = true
 vim.o.cursorline    = false
+vim.o.colorcolumn   = '81'
 vim.o.scrolloff     = 8
 
 vim.o.autoindent    = true
