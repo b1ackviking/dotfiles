@@ -3,7 +3,7 @@ local config = {}
 
 config.audible_bell = 'Disabled'
 config.font = wezterm.font 'JetBrains Mono'
-config.font_size = 12.5
+config.font_size = 11
 config.color_scheme = 'Vs Code Dark+ (Gogh)'
 -- config.color_scheme = 'Gruvbox Dark (Gogh)'
 config.window_background_opacity = 0.95
