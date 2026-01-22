@@ -32,8 +32,8 @@ DEV="git lazygit cmake ninja clang libc++ gdb lldb python uv"
 sudo sed -i 's/#Color/Color/' /etc/pacman.conf
 sudo pacman --needed -S $DEV
 
-which paru
-if [[ $? != 0 ]] ; then
+which paru > /dev/null
+if [ $? != 0 ] ; then
   git clone https://aur.archlinux.org/paru-bin.git
   cd paru-bin
   makepkg -si
@@ -65,8 +65,8 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt autoremove -y
 
-which brew
-if [[ $? != 0 ]] ; then
+which brew > /dev/null
+if [ $? != 0 ] ; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
