@@ -167,200 +167,140 @@ vim.keymap.set('n', '<leader>i',
   {})
 
 -- Plugins
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.uv.fs_stat(lazypath) then
-  local out = vim.fn.system({ 'git', 'clone', '--filter=blob:none', 'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable',
-    lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
+vim.pack.add({ 'https://github.com/Yggdroot/indentLine' })
 
-require('lazy').setup({
-  {
-    'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-buffer' },
-    config = function()
-      local cmp = require 'cmp'
-      cmp.setup({
-        snippet = {
-          expand = function(args)
-            vim.snippet.expand(args.body)
-          end,
-        },
-        mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        }),
-        sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'buffer' },
-        })
-      })
-    end
-  },
-  {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require 'gitsigns'.setup {
-        current_line_blame = true,
-        current_line_blame_opts = {
-          delay = 300,
-        },
-        current_line_blame_formatter = '<author>, <author_time:%d %b %Y %H:%M> - <summary>',
-      }
-    end
-  },
-  {
-    'norcalli/nvim-colorizer.lua',
-    config = function()
-      require 'colorizer'.setup()
-    end
-  },
-  'Yggdroot/indentLine',
-  'RostislavArts/naysayer.nvim',
-  {
-    'Mofiqul/vscode.nvim',
-    config = function()
-      local theme = require('vscode')
-      theme.setup {
-        transparent = true,
-        disable_nvimtree_bg = true
-      }
-    end
-  },
-  {
-    'ellisonleao/gruvbox.nvim',
-    config = function()
-      local theme = require('gruvbox')
-      theme.setup {
-        transparent_mode = true,
-      }
-    end
-  },
-  {
-    'nvim-lualine/lualine.nvim',
-    config = function()
-      require 'lualine'.setup {
-        options = {
-          theme = 'auto'
-        }
-      }
-    end
-  },
-  {
-    'kyazdani42/nvim-tree.lua',
-    dependencies = { 'kyazdani42/nvim-web-devicons' },
-    config = function()
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-      require 'nvim-tree'.setup {}
-      vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>', {})
-    end
-  },
-  {
-    'nvim-telescope/telescope.nvim',
-    branch = '0.1.x',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-      vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope LSP references' })
-    end
-  },
-  {
-    'mfussenegger/nvim-dap',
-    config = function()
-      local dap = require('dap')
-      dap.adapters.lldb = {
-        type = 'executable',
-        command = 'lldb-vscode',
-        name = 'lldb'
-      }
+-- vim.pack.add({ 'https://github.com/RostislavArts/naysayer.nvim' })
+-- vim.cmd.colorscheme "naysayer"
 
-      dap.configurations.cpp = {
-        {
-          name = 'lldb-vscode',
-          type = 'lldb',
-          request = 'launch',
-          program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-          end,
-          cwd = '${workspaceFolder}',
-          stopOnEntry = false,
-          args = {},
-        },
-      }
+-- vim.pack.add({ 'https://github.com/ellisonleao/gruvbox.nvim' })
+-- require('gruvbox').setup({ transparent_mode = true })
+-- vim.cmd.colorscheme "gruvbox"
 
-      dap.configurations.c = dap.configurations.cpp
-      dap.configurations.rust = dap.configurations.cpp
+vim.pack.add({ 'https://github.com/Mofiqul/vscode.nvim' })
+require('vscode').setup({ transparent = true, disable_nvimtree_bg = true })
+vim.cmd.colorscheme "vscode"
 
-      vim.keymap.set('n', '<F5>', dap.continue, {})
-      vim.keymap.set('n', '<F8>', dap.terminate, {})
-      vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, {})
-      vim.keymap.set('n', '<F10>', dap.step_over, {})
-      vim.keymap.set('n', '<F11>', dap.step_into, {})
-      vim.keymap.set('n', '<F12>', dap.step_out, {})
-    end
+vim.pack.add({ 'https://github.com/nvim-lualine/lualine.nvim' })
+require('lualine').setup({ theme = 'auto' })
+
+vim.pack.add({ 'https://github.com/lewis6991/gitsigns.nvim' })
+require('gitsigns').setup({
+  current_line_blame = true,
+  current_line_blame_opts = {
+    delay = 300,
   },
-  {
-    'rcarriga/nvim-dap-ui',
-    dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
-    config = function()
-      local dap, dapui = require("dap"), require("dapui")
-      dapui.setup {
-        layouts = {
-          {
-            -- You can change the order of elements in the sidebar
-            elements = {
-              -- Provide IDs as strings or tables with "id" and "size" keys
-              {
-                id = 'scopes',
-                size = 0.25, -- Can be float or integer > 1
-              },
-              { id = 'breakpoints', size = 0.25 },
-              { id = 'stacks',      size = 0.25 },
-              { id = 'watches',     size = 0.25 },
-            },
-            size = 40,
-            position = "left", -- Can be "left" or "right"
-          },
-          {
-            elements = {
-              'repl',
-            },
-            size = 10,
-            position = "bottom", -- Can be "bottom" or "top"
-          },
-        },
-      }
-      dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-    end
-  }
+  current_line_blame_formatter = '<author>, <author_time:%d %b %Y %H:%M> - <summary>',
 })
 
-vim.cmd.colorscheme "vscode"
--- vim.cmd.colorscheme "gruvbox"
--- vim.cmd.colorscheme "naysayer"
+vim.pack.add({ 'https://github.com/hrsh7th/cmp-nvim-lsp' })
+vim.pack.add({ 'https://github.com/hrsh7th/cmp-buffer' })
+vim.pack.add({ 'https://github.com/hrsh7th/nvim-cmp' })
+local cmp = require('cmp')
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.snippet.expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+  })
+})
+
+vim.pack.add({ 'https://github.com/kyazdani42/nvim-web-devicons' })
+vim.pack.add({ 'https://github.com/kyazdani42/nvim-tree.lua' })
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+require('nvim-tree').setup {}
+vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>', {})
+
+vim.pack.add({ 'https://github.com/nvim-lua/plenary.nvim' })
+vim.pack.add({ 'https://github.com/nvim-telescope/telescope.nvim' })
+require("telescope").setup {
+  defaults = {
+    layout_config = {
+      preview_width = 0.6
+    }
+  }
+}
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = 'Telescope LSP references' })
+vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Telescope LSP diagnostics' })
+
+vim.pack.add({ 'https://github.com/mfussenegger/nvim-dap' })
+local dap = require('dap')
+dap.adapters.lldb = {
+  type = 'executable',
+  command = 'lldb-dap',
+  name = 'lldb'
+}
+dap.configurations.cpp = {
+  {
+    name = 'lldb-dap',
+    type = 'lldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {},
+  },
+}
+dap.configurations.c = dap.configurations.cpp
+dap.configurations.rust = dap.configurations.cpp
+vim.keymap.set('n', '<F5>', dap.continue, {})
+vim.keymap.set('n', '<F8>', dap.terminate, {})
+vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, {})
+vim.keymap.set('n', '<F10>', dap.step_over, {})
+vim.keymap.set('n', '<F11>', dap.step_into, {})
+vim.keymap.set('n', '<F12>', dap.step_out, {})
+
+vim.pack.add({ 'https://github.com/nvim-neotest/nvim-nio' })
+vim.pack.add({ 'https://github.com/rcarriga/nvim-dap-ui' })
+local dapui = require("dapui")
+dapui.setup {
+  layouts = {
+    {
+      elements = {
+        {
+          id = 'scopes',
+          size = 0.25, -- Can be float or integer > 1
+        },
+        { id = 'breakpoints', size = 0.25 },
+        { id = 'stacks',      size = 0.25 },
+        { id = 'watches',     size = 0.25 },
+      },
+      size = 40,
+      position = "left", -- Can be "left" or "right"
+    },
+    {
+      elements = {
+        'repl',
+      },
+      size = 10,
+      position = "bottom", -- Can be "bottom" or "top"
+    },
+  },
+}
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
