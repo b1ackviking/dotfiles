@@ -93,6 +93,18 @@ vim.diagnostic.config({
   virtual_lines = {
     current_line = true,
   },
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.INFO] = '',
+      [vim.diagnostic.severity.HINT] = '',
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticError',
+      [vim.diagnostic.severity.WARN] = 'DiagnosticWarn',
+    },
+  },
 })
 
 vim.lsp.config('*', {
@@ -241,6 +253,11 @@ vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = 'Telescope LSP d
 
 vim.pack.add({ 'https://github.com/mfussenegger/nvim-dap' })
 local dap = require('dap')
+dap.adapters.gdb = {
+  type = 'executable',
+  command = 'gdb',
+  args = { '--interpreter=dap' }
+}
 dap.adapters.lldb = {
   type = 'executable',
   command = 'lldb-dap',
@@ -254,9 +271,20 @@ dap.configurations.cpp = {
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
     args = {},
+    cwd = '${workspaceFolder}',
+    stopOnEntry = true,
+  },
+  {
+    name = 'GDB',
+    type = 'gdb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    args = {},
+    cwd = "${workspaceFolder}",
+    stopAtBeginningOfMainSubprogram = true,
   },
 }
 dap.configurations.c = dap.configurations.cpp
@@ -268,39 +296,59 @@ vim.keymap.set('n', '<F10>', dap.step_over, {})
 vim.keymap.set('n', '<F11>', dap.step_into, {})
 vim.keymap.set('n', '<F12>', dap.step_out, {})
 
-vim.pack.add({ 'https://github.com/nvim-neotest/nvim-nio' })
-vim.pack.add({ 'https://github.com/rcarriga/nvim-dap-ui' })
-local dapui = require("dapui")
-dapui.setup {
-  layouts = {
-    {
-      elements = {
-        {
-          id = 'scopes',
-          size = 0.25, -- Can be float or integer > 1
-        },
-        { id = 'breakpoints', size = 0.25 },
-        { id = 'stacks',      size = 0.25 },
-        { id = 'watches',     size = 0.25 },
-      },
-      size = 40,
-      position = "left", -- Can be "left" or "right"
-    },
-    {
-      elements = {
-        'repl',
-      },
-      size = 10,
-      position = "bottom", -- Can be "bottom" or "top"
-    },
+vim.fn.sign_define('DapBreakpoint',
+  {
+    text = '',
+    texthl = '',
+    linehl = '',
+    numhl = ''
+  })
+vim.fn.sign_define('DapBreakpointCondition',
+  {
+    text = '',
+    texthl = '',
+    linehl = '',
+    numhl = ''
+  })
+vim.fn.sign_define('DapLogPoint',
+  {
+    text = '',
+    texthl = 'DiagnosticHint',
+    linehl = '',
+    numhl = ''
+  })
+vim.fn.sign_define('DapStopped',
+  {
+    text = '→',
+    texthl = 'DiagnosticWarn',
+    linehl = '',
+    numhl = ''
+  })
+vim.fn.sign_define('DapBreakpointRejected',
+  {
+    text = '',
+    texthl = '',
+    linehl = '',
+    numhl = ''
+  })
+
+vim.pack.add({ 'https://github.com/igorlfs/nvim-dap-view' })
+require('dap-view').setup({
+  windows = {
+    size = 0.5,
+    position = 'right',
   },
-}
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
-end
+  winbar = {
+    sections = { 'scopes', 'watches', 'breakpoints', 'threads', 'repl' },
+    default_section = 'scopes',
+    controls = { enabled = true },
+    base_sections = {
+      breakpoints = { label = "BPs", keymap = "B" },
+      scopes = { label = "Locals", keymap = "L" },
+      watches = { label = "Watch", keymap = "W" },
+      threads = { label = "Threads", keymap = "T" },
+      repl = { label = "REPL", keymap = "R" },
+    },
+  }
+})
+vim.keymap.set('n', '<leader>dv', ':DapViewToggle<CR>', { desc = 'Toggle DAP View' })
