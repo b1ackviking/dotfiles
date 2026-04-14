@@ -36,11 +36,11 @@ rustup toolchain install stable
 
 which paru > /dev/null
 if [ $? != 0 ] ; then
-  git clone https://aur.archlinux.org/paru-bin.git
-  cd paru-bin
+  git clone https://aur.archlinux.org/paru.git
+  cd paru
   makepkg -si
   cd ..
-  rm -r paru-bin
+  rm -r paru
 fi
 
 paru --needed -S $GRUB $ZSH $NETWORK $AUDIO $TERMINAL $VIM \
