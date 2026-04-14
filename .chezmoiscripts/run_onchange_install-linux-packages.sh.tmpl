@@ -17,7 +17,7 @@ APPS="firefox vlc"
 FONTS="ttf-droid ttf-hack ttf-dejavu ttf-liberation ttf-font-awesome \
        ttf-jetbrains-mono ttf-ubuntu-font-family gnu-free-fonts noto-fonts \
        ttf-fira-code ttf-carlito ttf-opensans ttf-jetbrains-mono-nerd"
-DEV="git lazygit cmake ninja clang libc++ gdb lldb python uv"
+DEV="git lazygit cmake ninja clang libc++ gdb lldb python uv rustup"
 #DEV_COMMON="cppcheck nodejs npm"
 #DEV_BUILD="ccache llvm llvm-libs lld mold"
 #DEV_DBG="rr debuginfod"
@@ -31,6 +31,8 @@ DEV="git lazygit cmake ninja clang libc++ gdb lldb python uv"
 
 sudo sed -i 's/#Color/Color/' /etc/pacman.conf
 sudo pacman --needed -S $DEV
+
+rustup toolchain install stable
 
 which paru > /dev/null
 if [ $? != 0 ] ; then
