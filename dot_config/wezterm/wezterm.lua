@@ -1,6 +1,9 @@
 local wezterm = require 'wezterm'
 local config = {}
 
+-- WA for https://github.com/wezterm/wezterm/issues/7750
+config.enable_wayland = false
+
 config.audible_bell = 'Disabled'
 config.font = wezterm.font 'JetBrains Mono'
 config.font_size = 11
