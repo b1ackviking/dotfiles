@@ -128,7 +128,7 @@ vim.lsp.config.clangd = {
     '--clang-tidy',
     '--header-insertion=iwyu',
     '--header-insertion-decorators',
-    '--query-driver="/**/*"',
+    '--query-driver=/**/*',
     '--completion-style=bundled',
   },
   filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto', 'javascript' },
