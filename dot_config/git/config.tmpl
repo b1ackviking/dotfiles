@@ -3,7 +3,6 @@
   name = Vladimir Chistyakov
 [init]
   defaultBranch = main
-  templateDir = ~/.config/git/template
 [core]
 {{- if eq .chezmoi.os "windows" }}
   autocrlf = true
@@ -33,3 +32,12 @@
   ignoreRevsFile = .git-blame-ignore-revs
 [url "git@github.com:"]
   insteadOf = "gh:"
+[hook "pre-commit.pre-commit"]
+	event = pre-commit
+	command = pre-commit hook-impl --hook-type pre-commit --skip-on-missing-config --
+[hook "pre-commit.pre-merge-commit"]
+	event = pre-merge-commit
+	command = pre-commit hook-impl --hook-type pre-merge-commit --skip-on-missing-config --
+[hook "pre-commit.commit-msg"]
+	event = commit-msg
+	command = pre-commit hook-impl --hook-type commit-msg --skip-on-missing-config --
