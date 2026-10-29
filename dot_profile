@@ -5,6 +5,7 @@ alias cat=bat
 alias icat="kitty +kitten icat"
 alias imgcat="wezterm imgcat"
 alias lg=lazygit
+alias ff=fastfetch
 
 export PATH=$HOME/.local/bin:$PATH
 
