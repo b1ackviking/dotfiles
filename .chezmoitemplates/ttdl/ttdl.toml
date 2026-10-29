@@ -40,7 +40,7 @@ done = "bright black"
 # todos that are due today
 today = "bright yellow"
 # todos that are due in and less in `ranges.soon` days
-soon = "white"
+soon = "yellow"
 # todos that old (color for creation date)
 old = "bright black"
 # the default text color
@@ -49,7 +49,7 @@ old = "bright black"
 [ranges]
 # TTDL filter `soon` selects todos that are due in and less than in `soon` days
 # 0 - disable `soon` feature
-soon = 0
+soon = 3
 # todos that have priority equal or higher than `important` are displayed in
 #   in `colors.important` font color.
 # Priority is a character from 'a'(highest priority) through 'z'. Setting
@@ -108,7 +108,7 @@ strict_mode = true
 #    I.e, with default "fields=pri,due,done" and "clean_subj=all", only
 #    "due" tag and value are removed. But with "fields=due,prj", both "due"
 #    tag and "project" are cleaned up.
-# clean_subject = "none"
+clean_subject = "tags"
 
 # Automatically hide columns if all values are empty
 # auto_hide_columns = false
@@ -145,6 +145,14 @@ strict_mode = true
 # It is used when 'edit' command includes the option `--interactive`.
 editor = "nvim"
 
+# Comma-separated list of fields that are hidden everywhere:
+# columns and tags in subject
+# hide_fields = "ts,tmr"
+
+# Date display format.
+# Choose from: 'default', 'short', 'human', and formatting string like '%Y-%m-%d'
+# date_format = "default"
+
 [syntax]
 # Set enabled to 'true' to highlight projects, contexts, tags, and hashtags
 #     inside the subject
@@ -153,6 +161,14 @@ tag_color = "bright cyan"
 hashtag_color = "cyan"
 project_color = "bright green"
 context_color = "green"
+
+[markdown]
+# Set enabled to 'true' to render Markdown formatting (bold, italic, code,
+#     links) in task subject text using terminal escape codes.
+# Bold, italic, inline code, and [links](url) are supported.
+enabled = true
+# Color for inline `code` spans. Same format as other color options.
+# code_color = "yellow"
 
 # Example of a custom field of `date` type with conditional highlight.
 # [[fields]]
@@ -167,3 +183,49 @@ context_color = "green"
 # [[fields.rules]]
 # range = "today..soon" # check must be done soon: between today and today+7 days, inclusive
 # color = "bright yellow"
+
+[agenda]
+# Do not display section "All day"
+# hide_all_day = false
+# The size of a time slot. The default value is 30 minutes.
+# A bare number means the number of minutes. But you can use duration special characters:
+#   m - minutes (slot="30" and slot="30m" mean the same)
+#   h - hours (slot="1h" and slot="60" mean the same)
+# Slot size must be between 15 minutes and 24 hours.
+# slot = "30"
+# Agenda time range display (default value from 8:00 to 20:00)
+# time = "800-2000"
+# What fields to check when picking out tasks for an agenda
+# fields = "due"
+# Characters to use when drawing agenda
+#   Index Char  Used to display
+#   0     ┌     Task starts
+#   1     │     Task continues
+#   2     └     Task finishes
+#   3     ╎     Task has started before the agenda time range (e.g., task has `time:700-900` and you display agenda for 800-1200)
+#   4     ╎     Task finishes after the agenda time range ends
+#   5     ─     Task is shorter than the time slot. It stars and ends within a single time slot
+#   6     [     Task is "unlimited", i.e, it has start time but does not have end time (or end time is earlier than the start time)
+#   7     ~     Task starts after its first time slot starts and the task is longer than 1 time slot
+#   8     ~     Task ends before its last time slot ends and the task is longer than 1 time slot
+# marks = "┌│└╎╎─[~~"
+
+# Multiple task list configuration.
+# All files mentioned in the section `sources` are processed by TTDL as one big list of tasks.
+# Field `path` is mandatory. The rest are optional.
+#   name - user-defined name of the list. For more convenient sort/filter/group calls
+#   path - path to the file that contains the current tasks. Path can be a directory. In this case the final file path
+#          is `path/todo.txt`
+#   archive_path - path to the archive file (where completed tasks are moved by the command 'archive').
+#                  If is not defined, TTDL makes it from `path` by replacing filename with `done.txt`.
+#   default - use this task list as the default one for the command `add`.
+#             If more than one list have `default=true`, the first one is always used.
+# [[sources]]
+# name = "main"
+# path = "todo.txt"
+# default = true
+#
+# [[sources]]
+# name = "secondary"
+# path = "another.txt"
+# archive_path = "done.log"
