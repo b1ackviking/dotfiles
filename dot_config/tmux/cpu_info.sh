@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export LC_ALL=en_US.UTF-8
+export LC_ALL=C
 
 # normalize the percentage string to always have a length of 5
 normalize_percent_len() {
@@ -17,7 +17,7 @@ get_percent()
 {
   case $(uname -s) in
     Linux)
-      percent=$(LC_NUMERIC=en_US.UTF-8 top -bn2 -d 0.01 | grep "[C]pu(s)" | tail -1 | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')
+      percent=$(top -bn2 -d 0.01 | grep "[C]pu(s)" | tail -1 | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')
       normalize_percent_len $percent
       ;;
 
